@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Vostok.Hercules.Client.Abstractions;
-using Vostok.Hercules.Client.Abstractions.Queries;
 using Vostok.Logging.Abstractions;
+using Vostok.Logging.Abstractions.Wrappers;
 using Vostok.Logging.Formatting;
 
 namespace Vostok.Logging.Hercules
@@ -42,11 +40,13 @@ namespace Vostok.Logging.Hercules
                 });
         }
 
-        public bool IsEnabledFor(LogLevel level) => IsEnabledFor(settingsProvider(), level);
+        public bool IsEnabledFor(LogLevel level)
+            => IsEnabledFor(settingsProvider(), level);
 
-        public ILog ForContext(string context) => /* TODO*/ this;
+        public ILog ForContext(string context)
+            => new SourceContextWrapper(this, context);
         
-        private bool IsEnabledFor(HerculesLogSettings settings, LogLevel level) =>
-            Array.IndexOf(settings.EnabledLogLevels, level) >= 0;
+        private bool IsEnabledFor(HerculesLogSettings settings, LogLevel level)
+            => Array.IndexOf(settings.EnabledLogLevels, level) >= 0;
     }
 }
