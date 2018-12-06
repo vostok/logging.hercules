@@ -21,4 +21,11 @@
     <ProjectReference Include="..\Vostok.Logging.Hercules\Vostok.Logging.Hercules.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Vostok.Hercules.Client.Abstractions">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vostok.hercules.client.abstractions\Vostok.Hercules.Client.Abstractions\bin\Release\netstandard2.0\Vostok.Hercules.Client.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
