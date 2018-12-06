@@ -9,7 +9,11 @@ notests *default:
     - Vostok.Logging.Hercules/bin/Release/netstandard2.0/Vostok.Logging.Hercules.dll
 
   deps:
+    - vostok.hercules.client.abstractions
+    - vostok.logging.abstractions
+    - vostok.logging.formatting
     - vostok.devtools
+    - vostok.commons.formatting/src
 
 full-build > notests:
   build:
