@@ -43,15 +43,4 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="HerculesTagsBuilderExtensions.Boilerplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>HerculesTagsBuilderExtensions.Boilerplate.tt</DependentUpon>
-    </Compile>
-    <None Update="HerculesTagsBuilderExtensions.Boilerplate.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-  </ItemGroup>
-
 </Project>

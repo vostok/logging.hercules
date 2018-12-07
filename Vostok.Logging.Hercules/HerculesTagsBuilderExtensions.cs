@@ -7,7 +7,7 @@ using Vostok.Logging.Hercules.Constants;
 
 namespace Vostok.Logging.Hercules
 {
-    internal static partial class HerculesTagsBuilderExtensions
+    internal static class HerculesTagsBuilderExtensions
     {
         public static IHerculesTagsBuilder AddProperties(
             this IHerculesTagsBuilder builder,
@@ -15,7 +15,7 @@ namespace Vostok.Logging.Hercules
         {
             foreach (var keyValuePair in properties)
             {
-                if (builder.TryAddPropertyOfHerculesType(keyValuePair.Key, keyValuePair.Value))
+                if (builder.TryAddObject(keyValuePair.Key, keyValuePair.Value))
                     continue;
                 builder.AddValue(keyValuePair.Key, ObjectValueFormatter.Format(keyValuePair.Value));
             }
