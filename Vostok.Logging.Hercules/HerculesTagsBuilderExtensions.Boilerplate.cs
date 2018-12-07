@@ -16,7 +16,7 @@ namespace Vostok.Logging.Hercules
                     return true;
 
                 case IEnumerable<bool> boolEnumerable:
-                    if (boolEnumerable is IList<bool> boolList)
+                    if (boolEnumerable is IReadOnlyList<bool> boolList)
                         builder.AddVector(key, boolList);
                     else
                         builder.AddVector(key, boolEnumerable.ToArray());
@@ -27,7 +27,7 @@ namespace Vostok.Logging.Hercules
                     return true;
 
                 case IEnumerable<byte> byteEnumerable:
-                    if (byteEnumerable is IList<byte> byteList)
+                    if (byteEnumerable is IReadOnlyList<byte> byteList)
                         builder.AddVector(key, byteList);
                     else
                         builder.AddVector(key, byteEnumerable.ToArray());
@@ -38,7 +38,7 @@ namespace Vostok.Logging.Hercules
                     return true;
 
                 case IEnumerable<short> shortEnumerable:
-                    if (shortEnumerable is IList<short> shortList)
+                    if (shortEnumerable is IReadOnlyList<short> shortList)
                         builder.AddVector(key, shortList);
                     else
                         builder.AddVector(key, shortEnumerable.ToArray());
@@ -49,7 +49,7 @@ namespace Vostok.Logging.Hercules
                     return true;
 
                 case IEnumerable<int> intEnumerable:
-                    if (intEnumerable is IList<int> intList)
+                    if (intEnumerable is IReadOnlyList<int> intList)
                         builder.AddVector(key, intList);
                     else
                         builder.AddVector(key, intEnumerable.ToArray());
@@ -60,7 +60,7 @@ namespace Vostok.Logging.Hercules
                     return true;
 
                 case IEnumerable<long> longEnumerable:
-                    if (longEnumerable is IList<long> longList)
+                    if (longEnumerable is IReadOnlyList<long> longList)
                         builder.AddVector(key, longList);
                     else
                         builder.AddVector(key, longEnumerable.ToArray());
@@ -71,7 +71,7 @@ namespace Vostok.Logging.Hercules
                     return true;
 
                 case IEnumerable<float> floatEnumerable:
-                    if (floatEnumerable is IList<float> floatList)
+                    if (floatEnumerable is IReadOnlyList<float> floatList)
                         builder.AddVector(key, floatList);
                     else
                         builder.AddVector(key, floatEnumerable.ToArray());
@@ -82,7 +82,7 @@ namespace Vostok.Logging.Hercules
                     return true;
 
                 case IEnumerable<double> doubleEnumerable:
-                    if (doubleEnumerable is IList<double> doubleList)
+                    if (doubleEnumerable is IReadOnlyList<double> doubleList)
                         builder.AddVector(key, doubleList);
                     else
                         builder.AddVector(key, doubleEnumerable.ToArray());
@@ -93,7 +93,7 @@ namespace Vostok.Logging.Hercules
                     return true;
 
                 case IEnumerable<Guid> GuidEnumerable:
-                    if (GuidEnumerable is IList<Guid> GuidList)
+                    if (GuidEnumerable is IReadOnlyList<Guid> GuidList)
                         builder.AddVector(key, GuidList);
                     else
                         builder.AddVector(key, GuidEnumerable.ToArray());
@@ -104,7 +104,7 @@ namespace Vostok.Logging.Hercules
                     return true;
 
                 case IEnumerable<string> stringEnumerable:
-                    if (stringEnumerable is IList<string> stringList)
+                    if (stringEnumerable is IReadOnlyList<string> stringList)
                         builder.AddVector(key, stringList);
                     else
                         builder.AddVector(key, stringEnumerable.ToArray());
