@@ -5,53 +5,49 @@ using Vostok.Logging.Abstractions.Wrappers;
 using Vostok.Logging.Formatting;
 
 namespace Vostok.Logging.Hercules
-{
+{    
+    /// <summary>
+    /// <para>A log which send events to a <see cref="IHerculesSink"/>.</para>
+    /// </summary>
     public class HerculesLog : ILog
     {
         private readonly Func<HerculesLogSettings> settingsProvider;
         private readonly IHerculesSink herculesSink;
 
+        /// <summary>
+        /// Create a new <see cref="HerculesLog"/> with given static settings.
+        /// </summary>
         public HerculesLog(HerculesLogSettings settings)
             : this(() => settings)
         {
         }
         
+        /// <summary>
+        /// <para>Create a new Hercules log with the dynamic settings provided by given delegate.</para>
+        /// </summary>
         public HerculesLog(Func<HerculesLogSettings> settingsProvider)
-        {
-            this.settingsProvider = settingsProvider;
-        }
+            => this.settingsProvider = settingsProvider;
 
         public void Log(LogEvent @event)
         {
+            if (@event == null)
+                return;
+            
             var settings = settingsProvider();
             
             if (!IsEnabledFor(settings, @event.Level))
                 return;
             
-            settings.HerculesSink.Put(settings.Stream,
-                builder =>
-                {
-                    builder
-                        .SetTimestamp(@event.Timestamp)
-                        .AddValue("TimeZone", @event.Timestamp.Offset.Ticks)
-                        .AddValue("MessageTemplate", @event.MessageTemplate ?? string.Empty)
-                        .AddValue("RenderedMessage", LogMessageFormatter.Format(@event, settings.FormatProvider));
-
-                    if (@event.Exception != null)
-                        builder.AddContainer(
-                            "Exception",
-                            tagsBuilder => tagsBuilder.AddExceptionData(@event.Exception));
-                    
-                    if (@event.Properties != null)
-                        builder.AddContainer(
-                            "Properties",
-                            tagsBuilder => tagsBuilder.AddProperties(@event.Properties));
-                });
+            settings.HerculesSink.Put(
+                settings.Stream,
+                builder => builder.AddLogEventData(@event, settings.FormatProvider));
         }
 
+        /// <inheritdoc />
         public bool IsEnabledFor(LogLevel level)
             => IsEnabledFor(settingsProvider(), level);
 
+        /// <inheritdoc />
         public ILog ForContext(string context)
             => new SourceContextWrapper(this, context);
         
