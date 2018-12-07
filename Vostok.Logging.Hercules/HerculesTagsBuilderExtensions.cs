@@ -38,15 +38,17 @@ namespace Vostok.Logging.Hercules
                     stackFrames,
                     (tagsBuilder, frame) => tagsBuilder.AddStackFrameData(frame));
             
+            var innerExceptions = new List<Exception>();
+            
             if (exception.InnerException != null)
-                builder.AddContainer(
-                    ExceptionFields.InnerException,
-                    tagsBuilder => tagsBuilder.AddExceptionData(exception.InnerException));
-
+                innerExceptions.Add(exception);
             if (exception is AggregateException aggregateException)
+                innerExceptions.AddRange(aggregateException.InnerExceptions);
+            
+            if (innerExceptions.Count > 0)
                 builder.AddVectorOfContainers(
                     ExceptionFields.InnerExceptions,
-                    aggregateException.InnerExceptions,
+                    innerExceptions,
                     (tagsBuilder, e) => tagsBuilder.AddExceptionData(e));
             
             return builder;
