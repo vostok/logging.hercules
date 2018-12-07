@@ -32,7 +32,7 @@ namespace Vostok.Logging.Hercules
                     return true;
 
                 case IEnumerable<<#=type #>> <#=type #>Enumerable:
-                    if (<#=type #>Enumerable is IList<<#=type #>> <#=type #>List)
+                    if (<#=type #>Enumerable is IReadOnlyList<<#=type #>> <#=type #>List)
                         builder.AddVector(key, <#=type #>List);
                     else
                         builder.AddVector(key, <#=type #>Enumerable.ToArray());

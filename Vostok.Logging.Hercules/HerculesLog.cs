@@ -35,8 +35,17 @@ namespace Vostok.Logging.Hercules
                         .SetTimestamp(@event.Timestamp)
                         .AddValue("TimeZone", @event.Timestamp.Offset.Ticks)
                         .AddValue("MessageTemplate", @event.MessageTemplate ?? string.Empty)
-                        .AddValue("RenderedMessage", LogMessageFormatter.Format(@event, settings.FormatProvider))
-                        .AddContainer("Properties", tagsBuilder => tagsBuilder.AddProperties(@event.Properties));
+                        .AddValue("RenderedMessage", LogMessageFormatter.Format(@event, settings.FormatProvider));
+
+                    if (@event.Exception != null)
+                        builder.AddContainer(
+                            "Exception",
+                            tagsBuilder => tagsBuilder.AddExceptionData(@event.Exception));
+                    
+                    if (@event.Properties != null)
+                        builder.AddContainer(
+                            "Properties",
+                            tagsBuilder => tagsBuilder.AddProperties(@event.Properties));
                 });
         }
 
