@@ -27,6 +27,7 @@ namespace Vostok.Logging.Hercules
         public HerculesLog(Func<HerculesLogSettings> settingsProvider)
             => this.settingsProvider = settingsProvider;
 
+        /// <inheritdoc />
         public void Log(LogEvent @event)
         {
             if (@event == null)
