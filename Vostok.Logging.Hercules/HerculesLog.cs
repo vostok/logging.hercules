@@ -12,7 +12,6 @@ namespace Vostok.Logging.Hercules
     public class HerculesLog : ILog
     {
         private readonly Func<HerculesLogSettings> settingsProvider;
-        private readonly IHerculesSink herculesSink;
 
         /// <summary>
         /// Create a new <see cref="HerculesLog"/> with given static settings.
