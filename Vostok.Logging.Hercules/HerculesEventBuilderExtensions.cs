@@ -2,6 +2,7 @@ using System;
 using Vostok.Hercules.Client.Abstractions.Events;
 using Vostok.Logging.Abstractions;
 using Vostok.Logging.Formatting;
+using Vostok.Logging.Hercules.Constants;
 
 namespace Vostok.Logging.Hercules
 {
@@ -13,18 +14,18 @@ namespace Vostok.Logging.Hercules
         {
             builder
                 .SetTimestamp(@event.Timestamp)
-                .AddValue("TimeZone", @event.Timestamp.Offset.Ticks)
-                .AddValue("MessageTemplate", @event.MessageTemplate ?? string.Empty)
-                .AddValue("RenderedMessage", LogMessageFormatter.Format(@event, formatProvider));
+                .AddValue(LogEventFields.TimeZone, @event.Timestamp.Offset.Ticks)
+                .AddValue(LogEventFields.MessageTemplate, @event.MessageTemplate ?? string.Empty)
+                .AddValue(LogEventFields.RenderedMessage, LogMessageFormatter.Format(@event, formatProvider));
 
             if (@event.Exception != null)
                 builder.AddContainer(
-                    "Exception",
+                    LogEventFields.Exception,
                     tagsBuilder => tagsBuilder.AddExceptionData(@event.Exception));
                     
             if (@event.Properties != null)
                 builder.AddContainer(
-                    "Properties",
+                    LogEventFields.Properties,
                     tagsBuilder => tagsBuilder.AddProperties(@event.Properties));
 
 

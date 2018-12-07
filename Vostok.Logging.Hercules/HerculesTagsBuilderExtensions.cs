@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Vostok.Commons.Formatting;
 using Vostok.Hercules.Client.Abstractions.Events;
+using Vostok.Logging.Hercules.Constants;
 
 namespace Vostok.Logging.Hercules
 {
@@ -27,24 +28,24 @@ namespace Vostok.Logging.Hercules
             Exception exception)
         {
             builder
-                .AddValue("Message", exception.Message)
-                .AddValue("Type", exception.GetType().FullName);
+                .AddValue(ExceptionFields.Message, exception.Message)
+                .AddValue(ExceptionFields.Type, exception.GetType().FullName);
             
             var stackFrames = new StackTrace(exception).GetFrames();
             if (stackFrames != null)
                 builder.AddVectorOfContainers(
-                    "StackTrace",
+                    ExceptionFields.StackTrace,
                     stackFrames,
                     (tagsBuilder, frame) => tagsBuilder.AddStackFrameData(frame));
             
             if (exception.InnerException != null)
                 builder.AddContainer(
-                    "InnerException",
+                    ExceptionFields.InnerException,
                     tagsBuilder => tagsBuilder.AddExceptionData(exception.InnerException));
 
             if (exception is AggregateException aggregateException)
                 builder.AddVectorOfContainers(
-                    "InnerExceptions",
+                    ExceptionFields.InnerExceptions,
                     aggregateException.InnerExceptions,
                     (tagsBuilder, e) => tagsBuilder.AddExceptionData(e));
             
@@ -58,22 +59,22 @@ namespace Vostok.Logging.Hercules
             var method = frame.GetMethod();
             if (method != null)
             {
-                builder.AddValue("Function", method.Name);
+                builder.AddValue(StackFrameFields.Function, method.Name);
                 if (method.DeclaringType != null)
-                    builder.AddValue("Class", method.DeclaringType.FullName);
+                    builder.AddValue(StackFrameFields.Type, method.DeclaringType.FullName);
             }
 
             var fileName = frame.GetFileName();
             if (fileName != null)
-                builder.AddValue("File", fileName);
+                builder.AddValue(StackFrameFields.File, fileName);
             
             var lineNumber = frame.GetFileLineNumber();
             if (lineNumber != -1)
-                builder.AddValue("Line", lineNumber);
+                builder.AddValue(StackFrameFields.Line, lineNumber);
             
             var columnNumber = frame.GetFileColumnNumber();
             if (columnNumber != -1)
-                builder.AddValue("Column", columnNumber);
+                builder.AddValue(StackFrameFields.Column, columnNumber);
             
             return builder;
         }
