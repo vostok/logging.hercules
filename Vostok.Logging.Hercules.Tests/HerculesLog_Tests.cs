@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Vostok.Hercules.Client.Abstractions;
 using Vostok.Hercules.Client.Abstractions.Events;
 using Vostok.Logging.Abstractions;
+using Vostok.Logging.Hercules.Constants;
 
 namespace Vostok.Logging.Hercules.Tests
 {
@@ -27,7 +28,6 @@ namespace Vostok.Logging.Hercules.Tests
                 HerculesSink = sink,
                 Stream = stream
             });
-
         }
         
         [TestCase(1)]
@@ -61,16 +61,16 @@ namespace Vostok.Logging.Hercules.Tests
 
             var @event = builder.BuildEvent();
 
-            var exception = @event.Tags["Exception"].AsContainer;
+            var exception = @event.Tags[LogEventFields.Exception].AsContainer;
 
-            var topFrame = exception["StackTrace"].AsVector.AsContainerArray[0];
+            var topFrame = exception[ExceptionFields.StackTrace].AsVector.AsContainerArray[0];
             
-            topFrame["Function"]
+            topFrame[StackFrameFields.Function]
                 .AsString
                 .Should()
                 .Be(nameof(GetExceptionWithStacktrace));
             
-            topFrame["Class"]
+            topFrame[StackFrameFields.Type]
                 .AsString
                 .Should()
                 .Be("Vostok.Logging.Hercules.Tests.HerculesLog_Tests");
