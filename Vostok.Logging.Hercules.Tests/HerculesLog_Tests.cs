@@ -63,7 +63,7 @@ namespace Vostok.Logging.Hercules.Tests
 
             var exception = @event.Tags[LogEventFields.Exception].AsContainer;
 
-            var topFrame = exception[ExceptionFields.StackTrace].AsVector.AsContainerArray[0];
+            var topFrame = exception[ExceptionFields.StackTrace].AsVector.AsContainerList[0];
             
             topFrame[StackFrameFields.Function]
                 .AsString
