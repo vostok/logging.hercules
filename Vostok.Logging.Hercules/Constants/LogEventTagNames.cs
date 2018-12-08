@@ -1,6 +1,6 @@
 namespace Vostok.Logging.Hercules.Constants
 {
-    internal static class LogEventFields
+    internal static class LogEventTagNames
     {
         public const string TimeZone = "TimeZone";
         public const string Exception = "Exception";

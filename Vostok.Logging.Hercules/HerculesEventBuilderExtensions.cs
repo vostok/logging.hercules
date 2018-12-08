@@ -14,18 +14,18 @@ namespace Vostok.Logging.Hercules
         {
             builder
                 .SetTimestamp(@event.Timestamp)
-                .AddValue(LogEventFields.TimeZone, @event.Timestamp.Offset.Ticks)
-                .AddValue(LogEventFields.MessageTemplate, @event.MessageTemplate ?? string.Empty)
-                .AddValue(LogEventFields.RenderedMessage, LogMessageFormatter.Format(@event, formatProvider));
+                .AddValue(LogEventTagNames.TimeZone, @event.Timestamp.Offset.Ticks)
+                .AddValue(LogEventTagNames.MessageTemplate, @event.MessageTemplate ?? string.Empty)
+                .AddValue(LogEventTagNames.RenderedMessage, LogMessageFormatter.Format(@event, formatProvider));
 
             if (@event.Exception != null)
                 builder.AddContainer(
-                    LogEventFields.Exception,
+                    LogEventTagNames.Exception,
                     tagsBuilder => tagsBuilder.AddExceptionData(@event.Exception));
                     
             if (@event.Properties != null)
                 builder.AddContainer(
-                    LogEventFields.Properties,
+                    LogEventTagNames.Properties,
                     tagsBuilder => tagsBuilder.AddProperties(@event.Properties));
 
 

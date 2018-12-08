@@ -1,6 +1,6 @@
 namespace Vostok.Logging.Hercules.Constants
 {
-    internal static class ExceptionFields
+    internal static class ExceptionTagNames
     {
         public const string InnerExceptions = "InnerExceptions";
         public const string StackTrace = "StackTrace";
