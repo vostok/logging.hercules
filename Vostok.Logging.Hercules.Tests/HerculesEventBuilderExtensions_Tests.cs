@@ -41,7 +41,7 @@ namespace Vostok.Logging.Hercules.Tests
 
             builder.AddLogEventData(@event, null);
 
-            builder.BuildEvent().Tags[LogEventFields.TimeZone].AsLong.Should().Be(utcOffset.Ticks);
+            builder.BuildEvent().Tags[LogEventTagNames.TimeZone].AsLong.Should().Be(utcOffset.Ticks);
         }
     }
 }

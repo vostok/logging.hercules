@@ -61,16 +61,16 @@ namespace Vostok.Logging.Hercules.Tests
 
             var @event = builder.BuildEvent();
 
-            var exception = @event.Tags[LogEventFields.Exception].AsContainer;
+            var exception = @event.Tags[LogEventTagNames.Exception].AsContainer;
 
-            var topFrame = exception[ExceptionFields.StackTrace].AsVector.AsContainerList[0];
+            var topFrame = exception[ExceptionTagNames.StackTrace].AsVector.AsContainerList[0];
             
-            topFrame[StackFrameFields.Function]
+            topFrame[StackFrameTagNames.Function]
                 .AsString
                 .Should()
                 .Be(nameof(GetExceptionWithStacktrace));
             
-            topFrame[StackFrameFields.Type]
+            topFrame[StackFrameTagNames.Type]
                 .AsString
                 .Should()
                 .Be("Vostok.Logging.Hercules.Tests.HerculesLog_Tests");

@@ -1,6 +1,6 @@
 namespace Vostok.Logging.Hercules.Constants
 {
-    internal static class StackFrameFields
+    internal static class StackFrameTagNames
     {
         public const string Function = "Function";
         public const string Type = "Type";

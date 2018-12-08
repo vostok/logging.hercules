@@ -28,13 +28,13 @@ namespace Vostok.Logging.Hercules
             Exception exception)
         {
             builder
-                .AddValue(ExceptionFields.Message, exception.Message)
-                .AddValue(ExceptionFields.Type, exception.GetType().FullName);
+                .AddValue(ExceptionTagNames.Message, exception.Message)
+                .AddValue(ExceptionTagNames.Type, exception.GetType().FullName);
             
             var stackFrames = new StackTrace(exception).GetFrames();
             if (stackFrames != null)
                 builder.AddVectorOfContainers(
-                    ExceptionFields.StackTrace,
+                    ExceptionTagNames.StackTrace,
                     stackFrames,
                     (tagsBuilder, frame) => tagsBuilder.AddStackFrameData(frame));
             
@@ -47,7 +47,7 @@ namespace Vostok.Logging.Hercules
             
             if (innerExceptions.Count > 0)
                 builder.AddVectorOfContainers(
-                    ExceptionFields.InnerExceptions,
+                    ExceptionTagNames.InnerExceptions,
                     innerExceptions,
                     (tagsBuilder, e) => tagsBuilder.AddExceptionData(e));
             
@@ -61,22 +61,22 @@ namespace Vostok.Logging.Hercules
             var method = frame.GetMethod();
             if (method != null)
             {
-                builder.AddValue(StackFrameFields.Function, method.Name);
+                builder.AddValue(StackFrameTagNames.Function, method.Name);
                 if (method.DeclaringType != null)
-                    builder.AddValue(StackFrameFields.Type, method.DeclaringType.FullName);
+                    builder.AddValue(StackFrameTagNames.Type, method.DeclaringType.FullName);
             }
 
             var fileName = frame.GetFileName();
             if (fileName != null)
-                builder.AddValue(StackFrameFields.File, fileName);
+                builder.AddValue(StackFrameTagNames.File, fileName);
             
             var lineNumber = frame.GetFileLineNumber();
             if (lineNumber != -1)
-                builder.AddValue(StackFrameFields.Line, lineNumber);
+                builder.AddValue(StackFrameTagNames.Line, lineNumber);
             
             var columnNumber = frame.GetFileColumnNumber();
             if (columnNumber != -1)
-                builder.AddValue(StackFrameFields.Column, columnNumber);
+                builder.AddValue(StackFrameTagNames.Column, columnNumber);
             
             return builder;
         }
