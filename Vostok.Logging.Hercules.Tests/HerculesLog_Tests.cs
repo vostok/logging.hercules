@@ -22,12 +22,8 @@ namespace Vostok.Logging.Hercules.Tests
         {
             stream = "test_stream_for_logs";
             sink = Substitute.For<IHerculesSink>();
-            
-            log = new HerculesLog(new HerculesLogSettings
-            {
-                HerculesSink = sink,
-                Stream = stream
-            });
+
+            log = new HerculesLog(new HerculesLogSettings(sink, stream));
         }
         
         [TestCase(1)]
