@@ -2,10 +2,10 @@ namespace Vostok.Logging.Hercules.Constants
 {
     internal static class LogEventTagNames
     {
-        public const string TimeZone = "TimeZone";
-        public const string Exception = "Exception";
-        public const string MessageTemplate = "MessageTemplate";
-        public const string RenderedMessage = "RenderedMessage";
-        public const string Properties = "Properties";
+        public const string UtcOffset = nameof(UtcOffset);
+        public const string Exception = nameof(Exception);
+        public const string MessageTemplate = nameof(MessageTemplate);
+        public const string RenderedMessage = nameof(RenderedMessage);
+        public const string Properties = nameof(Properties);
     }
 }
