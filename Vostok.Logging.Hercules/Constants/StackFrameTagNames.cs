@@ -2,10 +2,10 @@ namespace Vostok.Logging.Hercules.Constants
 {
     internal static class StackFrameTagNames
     {
-        public const string Function = "Function";
-        public const string Type = "Type";
-        public const string Line = "Line";
-        public const string Column = "Column";
-        public const string File = "File";
+        public const string Function = nameof(Function);
+        public const string Type = nameof(Type);
+        public const string Line = nameof(Line);
+        public const string Column = nameof(Column);
+        public const string File = nameof(File);
     }
 }

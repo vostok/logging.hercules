@@ -14,7 +14,7 @@ namespace Vostok.Logging.Hercules
         {
             builder
                 .SetTimestamp(@event.Timestamp)
-                .AddValue(LogEventTagNames.TimeZone, @event.Timestamp.Offset.Ticks)
+                .AddValue(LogEventTagNames.UtcOffset, @event.Timestamp.Offset.Ticks)
                 .AddValue(LogEventTagNames.MessageTemplate, @event.MessageTemplate ?? string.Empty)
                 .AddValue(LogEventTagNames.RenderedMessage, LogMessageFormatter.Format(@event, formatProvider));
 
