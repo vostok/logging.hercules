@@ -7,7 +7,7 @@ notests *default:
 
   install:
     - Vostok.Logging.Hercules/bin/Release/netstandard2.0/Vostok.Logging.Hercules.dll
-    - module vostok.client.abstractions
+    - module vostok.hercules.client.abstractions
     - module vostok.logging.abstractions
   deps:
     - vostok.hercules.client.abstractions
