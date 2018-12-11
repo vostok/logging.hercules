@@ -40,10 +40,10 @@ namespace Vostok.Logging.Hercules
             
             var innerExceptions = new List<Exception>();
             
-            if (exception.InnerException != null)
-                innerExceptions.Add(exception);
             if (exception is AggregateException aggregateException)
                 innerExceptions.AddRange(aggregateException.InnerExceptions);
+            else if (exception.InnerException != null)
+                innerExceptions.Add(exception.InnerException);
             
             if (innerExceptions.Count > 0)
                 builder.AddVectorOfContainers(
