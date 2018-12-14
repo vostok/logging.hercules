@@ -1,11 +1,21 @@
+using Vostok.Hercules.Client.Abstractions.Events;
+using Vostok.Logging.Hercules.Constants;
+
 namespace Vostok.Logging.Hercules.Parsing
 {
     public class StackFrameData
     {
-        public string Function { get; }
-        public string Type { get; }
-        public string File { get; }
-        public int? Line { get; }
-        public int? Column { get; }
+        private readonly HerculesTags tags;
+
+        internal StackFrameData(HerculesTags tags)
+        {
+            this.tags = tags;
+        }
+
+        public string Function => tags[StackFrameTagNames.Function]?.AsString;
+        public string Type => tags[StackFrameTagNames.Type]?.AsString;
+        public string File  => tags[StackFrameTagNames.File]?.AsString;
+        public int? Line  => tags[StackFrameTagNames.Line]?.AsInt;
+        public int? Column  => tags[StackFrameTagNames.Column]?.AsInt;
     }
 }
