@@ -1,12 +1,27 @@
+using System;
 using System.Collections.Generic;
+using Vostok.Hercules.Client.Abstractions.Events;
+using Vostok.Logging.Hercules.Constants;
 
 namespace Vostok.Logging.Hercules.Parsing
 {
     public class LogEventData
     {
-        public string MessageTemplate { get; }
-        public string RenderedMessage { get; }
-        public ExceptionData Exception { get; }
+        private readonly HerculesEvent @event;
+        private ExceptionData exceptionData;
+
+        public LogEventData(HerculesEvent @event)
+        {
+            this.@event = @event;
+            Timestamp = new DateTimeOffset(
+                @event.Timestamp.UtcDateTime, 
+                new TimeSpan(@event.Tags[LogEventTagNames.UtcOffset]?.AsLong ?? default));
+        }
+
+        public DateTimeOffset Timestamp { get; }
+        public string MessageTemplate => @event.Tags[LogEventTagNames.MessageTemplate]?.AsString;
+        public string RenderedMessage => @event.Tags[LogEventTagNames.RenderedMessage]?.AsString;
+        public ExceptionData Exception => ExceptionData.FromTags(@event.Tags[LogEventTagNames.Exception]?.AsContainer);
         public IDictionary<string, object> Properties { get; }
         public IDictionary<string, object> AdditionalFields { get; }
     }
