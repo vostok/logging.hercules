@@ -1,14 +1,15 @@
 using System;
+using JetBrains.Annotations;
 using Vostok.Hercules.Client.Abstractions;
 using Vostok.Logging.Abstractions;
 using Vostok.Logging.Abstractions.Wrappers;
-using Vostok.Logging.Formatting;
 
 namespace Vostok.Logging.Hercules
-{    
+{
     /// <summary>
-    /// <para>A log which send events to a <see cref="IHerculesSink"/>.</para>
+    /// A log which sends events to a <see cref="IHerculesSink"/>.
     /// </summary>
+    [PublicAPI]
     public class HerculesLog : ILog
     {
         private readonly Func<HerculesLogSettings> settingsProvider;
@@ -22,7 +23,7 @@ namespace Vostok.Logging.Hercules
         }
         
         /// <summary>
-        /// <para>Create a new Hercules log with the dynamic settings provided by given delegate.</para>
+        /// Create a new Hercules log with the dynamic settings provided by given delegate.
         /// </summary>
         public HerculesLog(Func<HerculesLogSettings> settingsProvider)
             => this.settingsProvider = settingsProvider;
