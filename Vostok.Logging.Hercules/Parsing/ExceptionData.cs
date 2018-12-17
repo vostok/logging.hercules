@@ -1,9 +1,11 @@
 using System.Linq;
+using JetBrains.Annotations;
 using Vostok.Hercules.Client.Abstractions.Events;
 using Vostok.Logging.Hercules.Constants;
 
 namespace Vostok.Logging.Hercules.Parsing
 {
+    [PublicAPI]
     public class ExceptionData
     {
         private readonly HerculesTags tags;

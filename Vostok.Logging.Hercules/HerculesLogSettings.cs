@@ -8,8 +8,9 @@ namespace Vostok.Logging.Hercules
     /// <summary>
     /// <para>Settings of a <see cref="HerculesLog"/> instance.</para>
     /// <para><see cref="HerculesLogSettings"/> instances should be treated as immutable after construction:
-    /// to reconfigure a <see cref="HerculesLog"/> on the fly, always create a new one instead of modifying the properties directly.</para>
+    /// to reconfigure a <see cref="HerculesLog"/> on the fly, always create a new settings instance instead of modifying the properties directly.</para>
     /// </summary>
+    [PublicAPI]
     public class HerculesLogSettings
     {
         /// <param name="herculesSink">Hercules sink used to emit events.</param>
@@ -38,7 +39,7 @@ namespace Vostok.Logging.Hercules
         /// </summary>
         [CanBeNull]
         public IFormatProvider FormatProvider { get; set; }
-        
+
         /// <summary>
         /// <para>A whitelist of enabled <see cref="LogLevel"/>s (contains all levels by default). Only log events with levels contained in this array will be logged.</para>
         /// <para>Dynamic reconfiguration is supported for this parameter: it's accessed for each <see cref="LogEvent"/>.</para>

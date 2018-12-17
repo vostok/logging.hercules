@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Vostok.Hercules.Client.Abstractions.Events;
 using Vostok.Logging.Hercules.Constants;
 
 namespace Vostok.Logging.Hercules.Parsing
 {
+    [PublicAPI]
     public class LogEventData
     {
         private readonly HerculesEvent @event;
