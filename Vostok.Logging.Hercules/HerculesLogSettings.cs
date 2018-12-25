@@ -25,13 +25,13 @@ namespace Vostok.Logging.Hercules
         /// Hercules sink used to emit events.
         /// </summary>
         [NotNull]
-        public IHerculesSink HerculesSink { get; }
+        public IHerculesSink HerculesSink { get; set; }
         
         /// <summary>
         /// Name of the Hercules stream to use.
         /// </summary>
         [NotNull]
-        public string Stream { get; }
+        public string Stream { get; set; }
         
         /// <summary>
         /// <para>If specified, this <see cref="IFormatProvider"/> will be used when formatting log property values.</para>
