@@ -7,5 +7,6 @@ namespace Vostok.Logging.Hercules.Constants
         public const string MessageTemplate = nameof(MessageTemplate);
         public const string RenderedMessage = nameof(RenderedMessage);
         public const string Properties = nameof(Properties);
+        public const string AdditionalFields = nameof(AdditionalFields);
     }
 }

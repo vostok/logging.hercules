@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using Vostok.Hercules.Client.Abstractions;
 using Vostok.Logging.Abstractions;

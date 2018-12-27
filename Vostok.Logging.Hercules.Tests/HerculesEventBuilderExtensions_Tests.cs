@@ -43,5 +43,18 @@ namespace Vostok.Logging.Hercules.Tests
 
             builder.BuildEvent().Tags[LogEventTagNames.UtcOffset].AsLong.Should().Be(utcOffset.Ticks);
         }
+        
+        [Test]
+        public void Should_serialize_properties_from_event()
+        {
+            var @event = new LogEvent(LogLevel.Info, timestamp, null)
+                .WithProperty("A", 1)
+                .WithProperty("B", 2);
+
+            builder.AddLogEventData(@event, null);
+
+            builder.BuildEvent().Tags[LogEventTagNames.Properties].AsContainer["A"].AsInt.Should().Be(1);
+            builder.BuildEvent().Tags[LogEventTagNames.Properties].AsContainer["B"].AsInt.Should().Be(2);
+        }
     }
 }
