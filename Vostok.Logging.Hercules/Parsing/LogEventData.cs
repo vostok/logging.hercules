@@ -47,10 +47,7 @@ namespace Vostok.Logging.Hercules.Parsing
         /// </summary>
         [CanBeNull]
         public IDictionary<string, object> Properties => ReadDictionary(LogEventTagNames.Properties);
-        
-        [CanBeNull]
-        public IDictionary<string, object> AdditionalFields => ReadDictionary(LogEventTagNames.AdditionalFields);
-        
+
         private IDictionary<string, object> ReadDictionary(string tagName) => @event.Tags[tagName]
             ?.AsContainer
             ?.ToDictionary(
