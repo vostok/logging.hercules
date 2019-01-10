@@ -20,3 +20,9 @@ full-build > notests:
   build:
     target: Vostok.Logging.Hercules.sln
     configuration: Release
+  
+  deps:
+    - vostok.hercules.client
+    - vostok.hercules.client.management
+    - vostok.clusterclient.core
+    - vostok.logging.console
