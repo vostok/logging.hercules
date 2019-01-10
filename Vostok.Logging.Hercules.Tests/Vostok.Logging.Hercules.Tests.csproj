@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
     <PackageReference Include="NUnit" Version="3.10.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
@@ -22,13 +23,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Vostok.Hercules.Clien">
+      <HintPath>..\..\vostok.hercules.client\Vostok.Hercules.Client\bin\Release\netstandard2.0\Vostok.Hercules.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Vostok.Hercules.Client.Abstractions">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vostok.hercules.client.abstractions\Vostok.Hercules.Client.Abstractions\bin\Release\netstandard2.0\Vostok.Hercules.Client.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="Vostok.Hercules.Client.Management">
+      <HintPath>..\..\vostok.hercules.client.management\Vostok.Hercules.Client.Management\bin\Release\netstandard2.0\Vostok.Hercules.Client.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="Vostok.ClusterClient.Core">
+      <HintPath>..\..\vostok.clusterclient.core\Vostok.ClusterClient.Core\bin\Release\netstandard2.0\Vostok.ClusterClient.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Vostok.Logging.Abstractions">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vostok.logging.abstractions\Vostok.Logging.Abstractions\bin\Release\netstandard2.0\Vostok.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Vostok.Logging.Console">
+      <HintPath>..\..\vostok.logging.console\Vostok.Logging.Console\bin\Release\netstandard2.0\Vostok.Logging.Console.dll</HintPath>
     </Reference>
   </ItemGroup>
 
