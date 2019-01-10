@@ -67,15 +67,15 @@ namespace Vostok.Logging.Hercules
             }
 
             var fileName = frame.GetFileName();
-            if (fileName != null)
+            if (!string.IsNullOrEmpty(fileName))
                 builder.AddValue(StackFrameTagNames.File, fileName);
             
             var lineNumber = frame.GetFileLineNumber();
-            if (lineNumber != -1)
+            if (lineNumber > 0)
                 builder.AddValue(StackFrameTagNames.Line, lineNumber);
             
             var columnNumber = frame.GetFileColumnNumber();
-            if (columnNumber != -1)
+            if (columnNumber > 0)
                 builder.AddValue(StackFrameTagNames.Column, columnNumber);
             
             return builder;
