@@ -61,7 +61,7 @@ namespace Vostok.Logging.Hercules.Tests
             managementClient.DeleteStream(streamName, 10.Seconds());
         }
         
-        [Test]
+        [Test, Explicit]
         public void Test()
         {
             var log = new HerculesLog(new HerculesLogSettings(sink, streamName));
