@@ -31,7 +31,7 @@ namespace Vostok.Logging.Hercules
                 .AddValue(ExceptionTagNames.Message, exception.Message)
                 .AddValue(ExceptionTagNames.Type, exception.GetType().FullName);
             
-            var stackFrames = new StackTrace(exception).GetFrames();
+            var stackFrames = new StackTrace(exception, true).GetFrames();
             if (stackFrames != null)
                 builder.AddVectorOfContainers(
                     ExceptionTagNames.StackTrace,
