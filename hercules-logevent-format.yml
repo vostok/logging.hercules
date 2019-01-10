@@ -1,0 +1,18 @@
+types:
+  Exception:
+    Type: String # Exception runtime type
+    Message?: String # Exception message
+    InnerExceptions?: Vector<Exception> # Inner exceptions
+    StackTrace?: Vector<StackFrame> # Exception stack frame
+  StackFrame:
+    Function?: String # Name of function
+    Type?: String # Type where function is declared
+    File?: String # File name
+    Line?: Integer # Line number
+    Column?: Short # Column number
+  LogEvent:
+    UtcOffset?: Long # Utc offset on 100ns ticks
+    MessageTemplate?: String # Message template
+    RenderedMessage?: String # Rendered message
+    Exception?: Exception # Exception
+    Properties?: Container # Key-value dictionary where values are primitives or string representation in case of object
