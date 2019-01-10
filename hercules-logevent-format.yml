@@ -1,6 +1,6 @@
 types:
   Exception:
-    Type: String # Exception runtime type
+    Type?: String # Exception runtime type
     Message?: String # Exception message
     InnerExceptions?: Vector<Exception> # Inner exceptions
     StackTrace?: Vector<StackFrame> # Exception stack frame
