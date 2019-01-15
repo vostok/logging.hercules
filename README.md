@@ -9,11 +9,11 @@ Here's how [LogEvent](https://github.com/vostok/logging.abstractions/blob/master
 
 - `Timestamp` (mandatory) corresponds to:
   - Hercules event build-timestamp - a `UtcDateTime` of `Timestamp`.
-  - `UtcOffset` tag - a `long` tag with offset from UTC expressed in 100-ns ticks.
+  - `utcOffset` tag - a `long` tag with offset from UTC expressed in 100-ns ticks.
 
-- `MessageTemplate` ---> `MessageTemplate` tag of `string` type.
+- `MessageTemplate` ---> `messageTemplate` tag of `string` type.
    
-- `RenderedMessage` ---> `MessageTemplate` rendered to log string with templates replaced to corresponding values from `Properties`.
+- `RenderedMessage` ---> `messageTemplate` rendered to log string with templates replaced to corresponding values from `Properties`.
 
 - `Properties` dictionary corresponds to a container with the same name. This container contains a tag for each pair. Keys are translated as-is, and the values are handled according to following conventions:
   - If the value is a primitive scalar or a vector of primitive scalars natively supported by Hercules (such as `int`, `long`, `guid`, `string`, etc), it's mapped as-is. 
@@ -22,11 +22,11 @@ Here's how [LogEvent](https://github.com/vostok/logging.abstractions/blob/master
 - `Exception` object corresponds to a container with the same name and following tags:
   - Exception runtime type (e.g. `System.NullReferenceException`) ---> `Type` tag of type `string`.
   - Exception message ---> `Message` tag of type `string`.
-  - Nested exceptions (e.g. `InnerException` and `InnerExceptions` for `AggregateException`) ---> `InnerExceptions` tag of type `Vector` which contains other exceptions in the same format.
-  - Stacktrace of exception ---> `StackTrace` tag of type `Vector` of `StackFrame`. `StackFrame` is `Container` of the following tags which describe a point of code which executed when exception occured:
-    - `Function` - a name of function (method).
-    - `Type` - a type when `Function` is declared.
-    - `File` - file name.
-    - `Line` - line number.
-    - `Column` - column number.
+  - Nested exceptions (e.g. `InnerException` and `InnerExceptions` for `AggregateException`) ---> `innerExceptions` tag of type `Vector` which contains other exceptions in the same format.
+  - Stacktrace of exception ---> `stackTrace` tag of type `Vector` of `StackFrame`. `StackFrame` is `Container` of the following tags which describe a point of code which executed when exception occured:
+    - `function` - a name of function (method).
+    - `type` - a type when `function` is declared.
+    - `file` - file name.
+    - `line` - line number.
+    - `column` - column number.
  
