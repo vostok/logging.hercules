@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using Vostok.Hercules.Client.Abstractions;
 using Vostok.Logging.Abstractions;
 
-namespace Vostok.Logging.Hercules
+namespace Vostok.Logging.Hercules.Configuration
 {
     /// <summary>
     /// <para>Settings of a <see cref="HerculesLog"/> instance.</para>

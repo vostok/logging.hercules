@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Vostok.Hercules.Client.Abstractions;
 using Vostok.Hercules.Client.Abstractions.Events;
 using Vostok.Logging.Abstractions;
+using Vostok.Logging.Hercules.Configuration;
 using Vostok.Logging.Hercules.Constants;
 
 namespace Vostok.Logging.Hercules.Tests

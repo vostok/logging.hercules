@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Vostok.Hercules.Client.Abstractions;
 using Vostok.Logging.Abstractions;
 using Vostok.Logging.Abstractions.Wrappers;
+using Vostok.Logging.Hercules.Configuration;
 
 namespace Vostok.Logging.Hercules
 {
@@ -12,7 +13,7 @@ namespace Vostok.Logging.Hercules
     [PublicAPI]
     public class HerculesLog : ILog
     {
-        private readonly Func<HerculesLogSettings> settingsProvider;
+        private readonly SafeSettingsProvider settingsProvider;
 
         /// <summary>
         /// Create a new <see cref="HerculesLog"/> with given static settings.
@@ -26,7 +27,7 @@ namespace Vostok.Logging.Hercules
         /// Create a new Hercules log with the dynamic settings provided by given delegate.
         /// </summary>
         public HerculesLog(Func<HerculesLogSettings> settingsProvider)
-            => this.settingsProvider = settingsProvider;
+            => this.settingsProvider = new SafeSettingsProvider(settingsProvider);
 
         /// <inheritdoc />
         public void Log(LogEvent @event)
@@ -34,7 +35,7 @@ namespace Vostok.Logging.Hercules
             if (@event == null)
                 return;
             
-            var settings = settingsProvider();
+            var settings = settingsProvider.Get();
             
             if (!IsEnabledFor(settings, @event.Level))
                 return;
@@ -46,7 +47,7 @@ namespace Vostok.Logging.Hercules
 
         /// <inheritdoc />
         public bool IsEnabledFor(LogLevel level)
-            => IsEnabledFor(settingsProvider(), level);
+            => IsEnabledFor(settingsProvider.Get(), level);
 
         /// <inheritdoc />
         public ILog ForContext(string context)
