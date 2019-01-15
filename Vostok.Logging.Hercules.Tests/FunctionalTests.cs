@@ -10,6 +10,7 @@ using Vostok.Hercules.Client.Abstractions.Queries;
 using Vostok.Hercules.Client.Management;
 using Vostok.Logging.Abstractions;
 using Vostok.Logging.Console;
+using Vostok.Logging.Hercules.Configuration;
 using Vostok.Logging.Hercules.Parsing;
 
 namespace Vostok.Logging.Hercules.Tests
