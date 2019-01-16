@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Vostok.Logging.Hercules.Configuration
 {
-    public class SettingsValidator
+    internal static class SettingsValidator
     {
         public static HerculesLogSettings ValidateSettings(HerculesLogSettings settings)
         {
