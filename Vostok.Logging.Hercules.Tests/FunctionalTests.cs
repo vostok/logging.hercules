@@ -1,8 +1,10 @@
 using System;
 using System.Threading;
+using FluentAssertions;
 using FluentAssertions.Extensions;
 using NUnit.Framework;
 using Vostok.Clusterclient.Core.Topology;
+using Vostok.Commons.Testing;
 using Vostok.Hercules.Client;
 using Vostok.Hercules.Client.Abstractions;
 using Vostok.Hercules.Client.Abstractions.Models;
@@ -22,7 +24,7 @@ namespace Vostok.Logging.Hercules.Tests
         private string streamName;
         private HerculesManagementClient managementClient;
 
-        private string apiKey = "...";
+        private string apiKey = "dotnet_api_key";
 
         [SetUp]
         public void Setup()
@@ -70,7 +72,7 @@ namespace Vostok.Logging.Hercules.Tests
             log.Error(GetException(), "lol {A} {C} {B}", new{A = 1, B = 2, C = 3});
             log.Error(GetException(), "lol {A} {C} {B}", new{A = 3, B = 4, C = 5});
             
-            Thread.Sleep(5000);
+            new Action(() => sink.SentRecordsCount.Should().Be(2)).ShouldPassIn(5.Seconds());
             
             var streamClient = new HerculesStreamClient(
                 new HerculesStreamClientConfig(
