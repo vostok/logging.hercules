@@ -26,3 +26,4 @@ full-build > notests:
     - vostok.hercules.client.management
     - vostok.clusterclient.core
     - vostok.logging.console
+    - vostok.commons.testing/src
