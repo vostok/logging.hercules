@@ -17,6 +17,7 @@ namespace Vostok.Logging.Hercules.Parsing
         private readonly HerculesEvent @event;
         private ExceptionData exceptionData;
 
+        /// <param name="event"><see cref="HerculesEvent"/> that represents serialized <see cref="LogEvent"/>.</param>
         public LogEventData(HerculesEvent @event)
         {
             this.@event = @event;
@@ -25,6 +26,10 @@ namespace Vostok.Logging.Hercules.Parsing
                 new TimeSpan(@event.Tags[LogEventTagNames.UtcOffset]?.AsLong ?? default));
         }
 
+        /// <summary>
+        /// <para>The timestamp of original <see cref="LogEvent"/>.</para>
+        /// <para>For more information see <see cref="LogEvent.Timestamp"/>.</para>
+        /// </summary>
         public DateTimeOffset Timestamp { get; }
         
         /// <summary>
@@ -35,9 +40,16 @@ namespace Vostok.Logging.Hercules.Parsing
         [CanBeNull]
         public string MessageTemplate => @event.Tags[LogEventTagNames.MessageTemplate]?.AsString;
         
+        /// <summary>
+        /// <para>The text representation of <see cref="LogEvent"/> message based on <see cref="MessageTemplate"/> and <see cref="Properties"/>.</para>
+        /// </summary>
         [CanBeNull]
         public string RenderedMessage => @event.Tags[LogEventTagNames.RenderedMessage]?.AsString;
         
+        /// <summary>
+        /// <para>The error associated with this log event.</para>
+        /// <para>See: <see cref="LogEvent.Exception"/>.</para>
+        /// </summary>
         [CanBeNull]
         public ExceptionData Exception => ExceptionData.FromTags(@event.Tags[LogEventTagNames.Exception]?.AsContainer);
 
