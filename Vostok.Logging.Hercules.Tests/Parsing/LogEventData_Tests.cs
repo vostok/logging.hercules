@@ -31,6 +31,8 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
             var timestamp = DateTimeOffset.Now.ToOffset(offset);
             var messageTemplate = Guid.NewGuid().ToString();
             var renderedMessage = Guid.NewGuid().ToString();
+            var propKey = "prop1";
+            var propValue = 2;
             
             var eventBuilder = new HerculesEventBuilder();
             
@@ -38,7 +40,7 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
                 .SetTimestamp(timestamp)
                 .AddValue(LogEventTagNames.MessageTemplate, messageTemplate)
                 .AddValue(LogEventTagNames.RenderedMessage, renderedMessage)
-                .AddContainer(LogEventTagNames.Properties, delegate { })
+                .AddContainer(LogEventTagNames.Properties, b => b.AddValue(propKey, propValue))
                 .AddContainer(LogEventTagNames.Exception, delegate { });
 
             var @event = eventBuilder.BuildEvent();
@@ -49,6 +51,7 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
             logEventData.MessageTemplate.Should().Be(messageTemplate);
             logEventData.RenderedMessage.Should().Be(renderedMessage);
             logEventData.Properties.Should().NotBeNull();
+            logEventData.Properties[propKey].AsInt.Should().Be(propValue);
             logEventData.Exception.Should().NotBeNull();
         }
     }
