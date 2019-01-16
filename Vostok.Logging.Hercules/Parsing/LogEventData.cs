@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using Vostok.Hercules.Client.Abstractions.Events;
+using Vostok.Hercules.Client.Abstractions.Values;
 using Vostok.Logging.Abstractions;
 using Vostok.Logging.Hercules.Constants;
 
@@ -58,12 +59,12 @@ namespace Vostok.Logging.Hercules.Parsing
         /// <para>For more information see <see cref="LogEvent.Properties"/>.</para>
         /// </summary>
         [CanBeNull]
-        public IDictionary<string, object> Properties => ReadDictionary(LogEventTagNames.Properties);
+        public IDictionary<string, HerculesValue> Properties => ReadDictionary(LogEventTagNames.Properties);
 
-        private IDictionary<string, object> ReadDictionary(string tagName) => @event.Tags[tagName]
+        private IDictionary<string, HerculesValue> ReadDictionary(string tagName) => @event.Tags[tagName]
             ?.AsContainer
             ?.ToDictionary(
                 x => x.Key,
-                x => x.Value.Value);
+                x => x.Value);
     }
 }
