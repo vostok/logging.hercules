@@ -5,7 +5,6 @@
   <Import Project="..\..\vostok.devtools\git-commit-to-assembly-title\Vostok.Tools.GitCommit2AssemblyTitle.props" />
   <Import Project="..\..\vostok.commons.formatting\ObjectValueFormatter.props" />
   
-  
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Configurations>Debug;Release</Configurations>
@@ -18,13 +17,13 @@
   
   <PropertyGroup>
     <Title>Vostok.Logging.Hercules</Title>
-    <Description>Vostok.Logging.Hercules</Description>
+    <Description>An implementation of Vostok ILog that send events to Hercules. Also provides mapping from Hercules events back to log events.</Description>
   </PropertyGroup>
   
   <PropertyGroup>
     <PackageProjectUrl>https://github.com/vostok/logging.hercules</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/vostok/logging.hercules/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageTags>vostok</PackageTags>
+    <PackageTags>vostok vostok.logging</PackageTags>
     <RepositoryUrl>https://github.com/vostok/logging.hercules</RepositoryUrl>
   </PropertyGroup>
   
