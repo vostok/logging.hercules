@@ -30,7 +30,7 @@ namespace Vostok.Logging.Hercules.Configuration
                 if (cachedSettings == null)
                     throw;
     
-                SafeConsole.ReportError("Failed to update file log configuration:", exception);
+                SafeConsole.ReportError("Failed to update Hercules log configuration:", exception);
                 return cachedSettings;
             }
         }
