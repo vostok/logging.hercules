@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using FluentAssertions;
 using FluentAssertions.Extensions;
 using NUnit.Framework;
@@ -91,7 +90,7 @@ namespace Vostok.Logging.Hercules.Tests
             foreach (var @event in readStreamResult.Payload.Events)
             {
                 var logEvent = new LogEventData(@event);
-                System.Console.WriteLine(logEvent.RenderedMessage);
+                System.Console.WriteLine(logEvent.Message);
                 System.Console.WriteLine(logEvent.Exception?.Message);
             }
         }
