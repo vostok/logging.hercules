@@ -16,7 +16,8 @@ namespace Vostok.Logging.Hercules.Parsing
     public class LogEventData
     {
         private readonly HerculesEvent @event;
-        private ExceptionData exceptionData;
+        private volatile ExceptionData exception;
+        private volatile IDictionary<string, HerculesValue> properties;
 
         /// <param name="event"><see cref="HerculesEvent"/> that represents serialized <see cref="LogEvent"/>.</param>
         public LogEventData(HerculesEvent @event)
@@ -52,14 +53,14 @@ namespace Vostok.Logging.Hercules.Parsing
         /// <para>See: <see cref="LogEvent.Exception"/>.</para>
         /// </summary>
         [CanBeNull]
-        public ExceptionData Exception => ExceptionData.FromTags(@event.Tags[LogEventTagNames.Exception]?.AsContainer);
+        public ExceptionData Exception => exception ?? (exception = ExceptionData.FromTags(@event.Tags[LogEventTagNames.Exception]?.AsContainer));
 
         /// <summary>
         /// <para>Contains various user-defined properties of the event.</para>
         /// <para>For more information see <see cref="LogEvent.Properties"/>.</para>
         /// </summary>
         [CanBeNull]
-        public IDictionary<string, HerculesValue> Properties => ReadDictionary(LogEventTagNames.Properties);
+        public IDictionary<string, HerculesValue> Properties => properties ?? (properties = ReadDictionary(LogEventTagNames.Properties));
 
         private IDictionary<string, HerculesValue> ReadDictionary(string tagName) => @event.Tags[tagName]
             ?.AsContainer
