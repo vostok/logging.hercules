@@ -22,12 +22,15 @@ namespace Vostok.Logging.Hercules
             : this(() => settings)
         {
         }
-        
+
         /// <summary>
         /// Create a new Hercules log with the dynamic settings provided by given delegate.
         /// </summary>
         public HerculesLog(Func<HerculesLogSettings> settingsProvider)
-            => this.settingsProvider = new SafeSettingsProvider(settingsProvider);
+        {
+            this.settingsProvider = new SafeSettingsProvider(settingsProvider);
+            this.settingsProvider.Get();
+        }
 
         /// <inheritdoc />
         public void Log(LogEvent @event)
