@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
@@ -71,6 +69,19 @@ namespace Vostok.Logging.Hercules.Tests
                 .AsString
                 .Should()
                 .Be("Vostok.Logging.Hercules.Tests.HerculesLog_Tests");
+        }
+
+        [Test]
+        public void Should_fail_during_construction_when_given_invalid_settings()
+        {
+            var settings = new HerculesLogSettings(sink, stream)
+            {
+                HerculesSink = null
+            };
+
+            Action action = () => new HerculesLog(settings);
+
+            action.Should().Throw<ArgumentException>();
         }
 
         private static Exception GetExceptionWithStacktrace()
