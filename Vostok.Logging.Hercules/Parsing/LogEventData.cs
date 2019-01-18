@@ -45,7 +45,7 @@ namespace Vostok.Logging.Hercules.Parsing
         /// <para>The text representation of <see cref="LogEvent"/> message based on <see cref="MessageTemplate"/> and <see cref="Properties"/>.</para>
         /// </summary>
         [CanBeNull]
-        public string RenderedMessage => @event.Tags[LogEventTagNames.RenderedMessage]?.AsString;
+        public string Message => @event.Tags[LogEventTagNames.Message]?.AsString;
         
         /// <summary>
         /// <para>The error associated with this log event.</para>

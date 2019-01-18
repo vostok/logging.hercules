@@ -21,7 +21,7 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
             logEventData.Exception.Should().BeNull();
             logEventData.Properties.Should().BeNull();
             logEventData.MessageTemplate.Should().BeNull();
-            logEventData.RenderedMessage.Should().BeNull();
+            logEventData.Message.Should().BeNull();
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
             eventBuilder
                 .SetTimestamp(timestamp)
                 .AddValue(LogEventTagNames.MessageTemplate, messageTemplate)
-                .AddValue(LogEventTagNames.RenderedMessage, renderedMessage)
+                .AddValue(LogEventTagNames.Message, renderedMessage)
                 .AddContainer(LogEventTagNames.Properties, b => b.AddValue(propKey, propValue))
                 .AddContainer(LogEventTagNames.Exception, delegate { });
 
@@ -49,7 +49,7 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
 
             logEventData.Timestamp.Should().Be(timestamp);
             logEventData.MessageTemplate.Should().Be(messageTemplate);
-            logEventData.RenderedMessage.Should().Be(renderedMessage);
+            logEventData.Message.Should().Be(renderedMessage);
             logEventData.Properties.Should().NotBeNull();
             logEventData.Properties[propKey].AsInt.Should().Be(propValue);
             logEventData.Exception.Should().NotBeNull();
