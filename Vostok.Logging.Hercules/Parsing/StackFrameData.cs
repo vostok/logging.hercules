@@ -21,26 +21,31 @@ namespace Vostok.Logging.Hercules.Parsing
         /// <summary>
         /// the method in which the frame is executing.
         /// </summary>
+        [CanBeNull]
         public string Function => tags[StackFrameTagNames.Function]?.AsString;
 
         /// <summary>
         /// The type where <see cref="Function"/> is declared.
         /// </summary>
+        [CanBeNull]
         public string Type => tags[StackFrameTagNames.Type]?.AsString;
-        
+
         /// <summary>
         /// The file name that contains the code that is executing in this frame.
         /// </summary>
+        [CanBeNull]
         public string File => tags[StackFrameTagNames.File]?.AsString;
-        
+
         /// <summary>
         /// The line number in the file that contains the code that is executing in this frame.
         /// </summary>
+        [CanBeNull]
         public int? Line => tags[StackFrameTagNames.Line]?.AsInt;
         
         /// <summary>
         /// The column number in the file that contains the code that is executing in this frame.
         /// </summary>
+        [CanBeNull]
         public int? Column => tags[StackFrameTagNames.Column]?.AsInt;
     }
 }

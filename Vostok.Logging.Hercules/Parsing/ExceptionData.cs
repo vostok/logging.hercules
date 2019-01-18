@@ -13,8 +13,8 @@ namespace Vostok.Logging.Hercules.Parsing
     public class ExceptionData
     {
         private readonly HerculesTags tags;
-        private ExceptionData[] innerExceptions;
-        private StackFrameData[] stacktrace;
+        private volatile ExceptionData[] innerExceptions;
+        private volatile StackFrameData[] stacktrace;
         
         /// <summary>
         /// The runtime type of exception.
@@ -29,11 +29,13 @@ namespace Vostok.Logging.Hercules.Parsing
         /// <summary>
         /// An array of <see cref="StackFrameData"/> that describes exception stacktrace. 
         /// </summary>
+        [CanBeNull]
         public StackFrameData[] StackTrace => stacktrace ?? (stacktrace = ExtractStacktrace());
         
         /// <summary>
         /// An array of nested exceptions that contains in this exception.
         /// </summary>
+        [CanBeNull]
         public ExceptionData[] InnerExceptions => innerExceptions ?? (innerExceptions = ExtractInnerExceptions());
 
         private ExceptionData(HerculesTags tags)
