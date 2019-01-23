@@ -13,29 +13,36 @@ namespace Vostok.Logging.Hercules.Parsing
     public class ExceptionData
     {
         private readonly HerculesTags tags;
-        private volatile ExceptionData[] innerExceptions;
-        private volatile StackFrameData[] stacktrace;
+        private ExceptionData[] innerExceptions;
+        private StackFrameData[] stacktrace;
         
         /// <summary>
         /// The runtime type of exception.
         /// </summary>
+        [CanBeNull]
         public string Type => tags[ExceptionTagNames.Type]?.AsString;
         
         /// <summary>
         /// The message that contains in this exception.
         /// </summary>
+        [CanBeNull]
         public string Message => tags[ExceptionTagNames.Message]?.AsString;
         
         /// <summary>
         /// An array of <see cref="StackFrameData"/> that describes exception stacktrace. 
         /// </summary>
         [CanBeNull]
-        public StackFrameData[] StackTrace => stacktrace ?? (stacktrace = ExtractStacktrace());
+        public StackFrameData[] StackFrames => stacktrace ?? (stacktrace = ExtractStacktrace());
+
+        /// <summary>
+        /// The string representation of exception stacktrace.
+        /// </summary>
+        [CanBeNull]
+        public string StackTrace => tags[ExceptionTagNames.StackTrace]?.AsString;
         
         /// <summary>
         /// An array of nested exceptions that contains in this exception.
         /// </summary>
-        [CanBeNull]
         public ExceptionData[] InnerExceptions => innerExceptions ?? (innerExceptions = ExtractInnerExceptions());
 
         private ExceptionData(HerculesTags tags)
@@ -59,7 +66,7 @@ namespace Vostok.Logging.Hercules.Parsing
 
         private StackFrameData[] ExtractStacktrace()
         {
-            var vector = tags[ExceptionTagNames.StackTrace]?.AsVector;
+            var vector = tags[ExceptionTagNames.StackFrames]?.AsVector;
 
             return vector?.AsContainerList.Select(x => new StackFrameData(x)).ToArray();
         }
