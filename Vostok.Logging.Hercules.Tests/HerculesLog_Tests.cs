@@ -58,7 +58,7 @@ namespace Vostok.Logging.Hercules.Tests
 
             var exception = @event.Tags[LogEventTagNames.Exception].AsContainer;
 
-            var topFrame = exception[ExceptionTagNames.StackTrace].AsVector.AsContainerList[0];
+            var topFrame = exception[ExceptionTagNames.StackFrames].AsVector.AsContainerList[0];
             
             topFrame[StackFrameTagNames.Function]
                 .AsString
@@ -69,19 +69,8 @@ namespace Vostok.Logging.Hercules.Tests
                 .AsString
                 .Should()
                 .Be("Vostok.Logging.Hercules.Tests.HerculesLog_Tests");
-        }
 
-        [Test]
-        public void Should_fail_during_construction_when_given_invalid_settings()
-        {
-            var settings = new HerculesLogSettings(sink, stream)
-            {
-                HerculesSink = null
-            };
-
-            Action action = () => new HerculesLog(settings);
-
-            action.Should().Throw<ArgumentException>();
+            exception[ExceptionTagNames.StackTrace].AsString.Should().Contain("at Vostok.Logging.Hercules.Tests");
         }
 
         private static Exception GetExceptionWithStacktrace()
