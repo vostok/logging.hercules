@@ -34,9 +34,13 @@ namespace Vostok.Logging.Hercules
             var stackFrames = new StackTrace(exception, true).GetFrames();
             if (stackFrames != null)
                 builder.AddVectorOfContainers(
-                    ExceptionTagNames.StackTrace,
+                    ExceptionTagNames.StackFrames,
                     stackFrames,
                     (tagsBuilder, frame) => tagsBuilder.AddStackFrameData(frame));
+
+            var stackTrace = exception.StackTrace;
+            if (!string.IsNullOrEmpty(stackTrace))
+                builder.AddValue(ExceptionTagNames.StackTrace, stackTrace);
             
             var innerExceptions = new List<Exception>();
             
