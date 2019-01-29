@@ -18,6 +18,7 @@ namespace Vostok.Logging.Hercules.Parsing
         private readonly HerculesEvent @event;
         private volatile ExceptionData exception;
         private volatile IDictionary<string, HerculesValue> properties;
+        private LogLevel? level;
 
         /// <param name="event"><see cref="HerculesEvent"/> that represents serialized <see cref="LogEvent"/>.</param>
         public LogEventData(HerculesEvent @event)
@@ -33,7 +34,13 @@ namespace Vostok.Logging.Hercules.Parsing
         /// <para>For more information see <see cref="LogEvent.Timestamp"/>.</para>
         /// </summary>
         public DateTimeOffset Timestamp { get; }
-        
+
+        /// <summary>
+        /// <para>The level of original <see cref="LogEvent"/>.</para>
+        /// <para>For more information see <see cref="LogEvent.Level"/>.</para>
+        /// </summary>
+        public LogLevel Level => level ?? (level = ParseLogLevel(@event.Tags[LogEventTagNames.Level].AsString)).Value;
+
         /// <summary>
         /// <para>The template of the log message containing placeholders to be filled with values from <see cref="Properties"/>.</para>
         /// <para>Can be null for events containing only <see cref="Exception"/>.</para>
@@ -67,5 +74,24 @@ namespace Vostok.Logging.Hercules.Parsing
             ?.ToDictionary(
                 x => x.Key,
                 x => x.Value);
+
+        private LogLevel ParseLogLevel(string level)
+        {
+            switch (level)
+            {
+                case "Debug":
+                    return LogLevel.Debug;
+                case "Info":
+                    return LogLevel.Info;
+                case "Warn":
+                    return LogLevel.Warn;
+                case "Error":
+                    return LogLevel.Error;
+                case "Fatal":
+                    return LogLevel.Fatal;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(level), level);
+            }
+        }
     }
 }

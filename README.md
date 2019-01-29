@@ -10,6 +10,8 @@ Here's how [LogEvent](https://github.com/vostok/logging.abstractions/blob/master
 - `Timestamp` (mandatory) corresponds to:
   - Hercules event built-in timestamp — `UtcDateTime` of `Timestamp`.
   - `utcOffset` tag — a `long` tag with offset from UTC expressed in 100-ns ticks.
+  
+- `Level` ---> `level` tag of `string` type.
 
 - `MessageTemplate` ---> `messageTemplate` tag of `string` type.
    
