@@ -7,5 +7,6 @@ namespace Vostok.Logging.Hercules.Constants
         public const string MessageTemplate = "messageTemplate";
         public const string Message = "message";
         public const string Properties = "properties";
+        public const string Level = "level";
     }
 }
