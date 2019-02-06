@@ -21,6 +21,7 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
             logEventData.Exception.Should().BeNull();
             logEventData.Properties.Should().BeNull();
             logEventData.MessageTemplate.Should().BeNull();
+            logEventData.StackTrace.Should().BeNull();
             logEventData.Message.Should().BeNull();
         }
 
@@ -29,6 +30,7 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
         {
             var offset = 10.Hours();
             var timestamp = DateTimeOffset.Now.ToOffset(offset);
+            var stackTrace = Guid.NewGuid().ToString();
             var messageTemplate = Guid.NewGuid().ToString();
             var renderedMessage = Guid.NewGuid().ToString();
             var propKey = "prop1";
@@ -40,6 +42,7 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
                 .SetTimestamp(timestamp)
                 .AddValue(LogEventTagNames.MessageTemplate, messageTemplate)
                 .AddValue(LogEventTagNames.Message, renderedMessage)
+                .AddValue(LogEventTagNames.StackTrace, stackTrace)
                 .AddContainer(LogEventTagNames.Properties, b => b.AddValue(propKey, propValue))
                 .AddContainer(LogEventTagNames.Exception, delegate { });
 
@@ -50,6 +53,7 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
             logEventData.Timestamp.Should().Be(timestamp);
             logEventData.MessageTemplate.Should().Be(messageTemplate);
             logEventData.Message.Should().Be(renderedMessage);
+            logEventData.StackTrace.Should().Be(stackTrace);
             logEventData.Properties.Should().NotBeNull();
             logEventData.Properties[propKey].AsInt.Should().Be(propValue);
             logEventData.Exception.Should().NotBeNull();

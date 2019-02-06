@@ -4,7 +4,6 @@ namespace Vostok.Logging.Hercules.Constants
     {
         public const string InnerExceptions = "innerExceptions";
         public const string StackFrames = "stackFrames";
-        public const string StackTrace = "stackTrace";
         public const string Message = "message";
         public const string Type = "type";
     }

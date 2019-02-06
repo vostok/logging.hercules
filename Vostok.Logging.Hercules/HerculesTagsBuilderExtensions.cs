@@ -38,10 +38,6 @@ namespace Vostok.Logging.Hercules
                     stackFrames,
                     (tagsBuilder, frame) => tagsBuilder.AddStackFrameData(frame));
 
-            var stackTrace = exception.StackTrace;
-            if (!string.IsNullOrEmpty(stackTrace))
-                builder.AddValue(ExceptionTagNames.StackTrace, stackTrace);
-            
             var innerExceptions = new List<Exception>();
             
             if (exception is AggregateException aggregateException)
