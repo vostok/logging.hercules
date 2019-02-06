@@ -70,7 +70,7 @@ namespace Vostok.Logging.Hercules.Tests
                 .Should()
                 .Be("Vostok.Logging.Hercules.Tests.HerculesLog_Tests");
 
-            exception[ExceptionTagNames.StackTrace].AsString.Should().Contain("at Vostok.Logging.Hercules.Tests");
+            @event.Tags[LogEventTagNames.StackTrace].AsString.Should().Contain("at Vostok.Logging.Hercules.Tests");
         }
 
         private static Exception GetExceptionWithStacktrace()

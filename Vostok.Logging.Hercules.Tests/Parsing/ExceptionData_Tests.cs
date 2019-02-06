@@ -17,7 +17,6 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
 
             logEventData.Type.Should().BeNull();
             logEventData.Message.Should().BeNull();
-            logEventData.StackTrace.Should().BeNull();
             logEventData.InnerExceptions.Should().BeNull();
         }
 
@@ -26,14 +25,12 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
         {
             var type = Guid.NewGuid().ToString();
             var message = Guid.NewGuid().ToString();
-            var stackTrace = Guid.NewGuid().ToString();
             
             var tagsBuilder = new HerculesTagsBuilder();
             
             tagsBuilder
                 .AddValue(ExceptionTagNames.Type, type)
                 .AddValue(ExceptionTagNames.Message, message)
-                .AddValue(ExceptionTagNames.StackTrace, stackTrace)
                 .AddVectorOfContainers(ExceptionTagNames.StackFrames, new Action<IHerculesTagsBuilder>[0])
                 .AddVectorOfContainers(ExceptionTagNames.InnerExceptions, new Action<IHerculesTagsBuilder>[0]);
 
@@ -43,7 +40,6 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
 
             exceptionData.Type.Should().Be(type);
             exceptionData.Message.Should().Be(message);
-            exceptionData.StackTrace.Should().Be(stackTrace);
             exceptionData.StackFrames.Should().NotBeNull();
             exceptionData.InnerExceptions.Should().NotBeNull();
         }

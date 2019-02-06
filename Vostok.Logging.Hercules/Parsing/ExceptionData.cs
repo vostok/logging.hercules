@@ -33,12 +33,6 @@ namespace Vostok.Logging.Hercules.Parsing
         /// </summary>
         [CanBeNull]
         public StackFrameData[] StackFrames => stacktrace ?? (stacktrace = ExtractStacktrace());
-
-        /// <summary>
-        /// The string representation of exception stacktrace.
-        /// </summary>
-        [CanBeNull]
-        public string StackTrace => tags[ExceptionTagNames.StackTrace]?.AsString;
         
         /// <summary>
         /// An array of nested exceptions that contains in this exception.

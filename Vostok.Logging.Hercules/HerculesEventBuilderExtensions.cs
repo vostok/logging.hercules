@@ -22,9 +22,14 @@ namespace Vostok.Logging.Hercules
                 builder.AddValue(LogEventTagNames.MessageTemplate, @event.MessageTemplate);
 
             if (@event.Exception != null)
+            {
                 builder.AddContainer(
                     LogEventTagNames.Exception,
                     tagsBuilder => tagsBuilder.AddExceptionData(@event.Exception));
+
+                if (@event.Exception.StackTrace != null)
+                    builder.AddValue(LogEventTagNames.StackTrace, @event.Exception.ToString());
+            }
                     
             if (@event.Properties != null)
                 builder.AddContainer(

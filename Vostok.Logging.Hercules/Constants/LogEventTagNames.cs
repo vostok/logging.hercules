@@ -8,5 +8,6 @@ namespace Vostok.Logging.Hercules.Constants
         public const string Message = "message";
         public const string Properties = "properties";
         public const string Level = "level";
+        public const string StackTrace = "stackTrace";
     }
 }

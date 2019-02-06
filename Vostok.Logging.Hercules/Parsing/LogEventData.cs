@@ -63,6 +63,12 @@ namespace Vostok.Logging.Hercules.Parsing
         public ExceptionData Exception => exception ?? (exception = ExceptionData.FromTags(@event.Tags[LogEventTagNames.Exception]?.AsContainer));
 
         /// <summary>
+        /// The string representation of <see cref="Exception"/> stacktrace.
+        /// </summary>
+        [CanBeNull]
+        public string StackTrace => @event.Tags[LogEventTagNames.StackTrace]?.AsString;
+        
+        /// <summary>
         /// <para>Contains various user-defined properties of the event.</para>
         /// <para>For more information see <see cref="LogEvent.Properties"/>.</para>
         /// </summary>

@@ -23,7 +23,7 @@ namespace Vostok.Logging.Hercules.Tests
         private string streamName;
         private HerculesManagementClient managementClient;
 
-        private string apiKey = "dotnet_api_key";
+        private string apiKey = "elk_adapter_key";
 
         [SetUp]
         public void Setup()
@@ -37,6 +37,7 @@ namespace Vostok.Logging.Hercules.Tests
                 consoleLog);
 
             streamName = "dotnet_test_" + Guid.NewGuid().ToString().Substring(0, 8);
+            streamName = "elk_adapter_test_0";// + Guid.NewGuid().ToString().Substring(0, 8);
 
             managementClient = new HerculesManagementClient(
                 new HerculesManagementClientConfig
@@ -46,27 +47,28 @@ namespace Vostok.Logging.Hercules.Tests
                 },
                 consoleLog);
 
-            managementClient.CreateStream(
-                new CreateStreamQuery(
-                    new StreamDescription(streamName)
-                    {
-                        Type = StreamType.Base,
-                        Partitions = 1,
-                        TTL = 1.Minutes()
-                    }),
-                10.Seconds());
+            // managementClient.CreateStream(
+            //     new CreateStreamQuery(
+            //         new StreamDescription(streamName)
+            //         {
+            //             Type = StreamType.Base,
+            //             Partitions = 1,
+            //             TTL = 1.Minutes()
+            //         }),
+            //     10.Seconds());
         }
 
         [TearDown]
         public void TearDown()
         {
-            managementClient.DeleteStream(streamName, 10.Seconds());
+            // managementClient.DeleteStream(streamName, 10.Seconds());
         }
         
         [Test, Explicit]
         public void Test()
         {
-            var log = new HerculesLog(new HerculesLogSettings(sink, streamName));
+            var log = new HerculesLog(new HerculesLogSettings(sink, streamName))
+                .WithProperty("elk-index", () => "hercules-test-dotnet");
             
             log.Error(GetException(), "lol {A} {C} {B}", new{A = 1, B = 2, C = 3});
             log.Error(GetException(), "lol {A} {C} {B}", new{A = 3, B = 4, C = 5});
