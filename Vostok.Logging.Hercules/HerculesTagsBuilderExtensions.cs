@@ -15,8 +15,12 @@ namespace Vostok.Logging.Hercules
         {
             foreach (var keyValuePair in properties)
             {
+                if (IsNumberIndex(keyValuePair.Key))
+                    continue;
+
                 if (builder.TryAddObject(keyValuePair.Key, keyValuePair.Value))
                     continue;
+
                 builder.AddValue(keyValuePair.Key, ObjectValueFormatter.Format(keyValuePair.Value));
             }
 
@@ -79,6 +83,19 @@ namespace Vostok.Logging.Hercules
                 builder.AddValue(StackFrameTagNames.Column, columnNumber);
             
             return builder;
+        }
+
+        private static bool IsNumberIndex(string s)
+        {
+            foreach (var c in s)
+            {
+                if (c < '0')
+                    return false;
+                if (c > '9')
+                    return false;
+            }
+
+            return true;
         }
     }
 }
