@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using Vostok.Commons.Formatting;
 using Vostok.Hercules.Client.Abstractions.Events;
 using Vostok.Logging.Hercules.Constants;
@@ -15,7 +16,7 @@ namespace Vostok.Logging.Hercules
         {
             foreach (var keyValuePair in properties)
             {
-                if (IsNumberIndex(keyValuePair.Key))
+                if (IsPositionalName(keyValuePair.Key))
                     continue;
 
                 if (builder.TryAddObject(keyValuePair.Key, keyValuePair.Value))
@@ -54,7 +55,7 @@ namespace Vostok.Logging.Hercules
                     ExceptionTagNames.InnerExceptions,
                     innerExceptions,
                     (tagsBuilder, e) => tagsBuilder.AddExceptionData(e));
-            
+
             return builder;
         }
 
@@ -85,13 +86,15 @@ namespace Vostok.Logging.Hercules
             return builder;
         }
 
-        private static bool IsNumberIndex(string s)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool IsPositionalName(string propertyName)
         {
-            foreach (var c in s)
+            foreach (var character in propertyName)
             {
-                if (c < '0')
+                if (character < '0')
                     return false;
-                if (c > '9')
+
+                if (character > '9')
                     return false;
             }
 
