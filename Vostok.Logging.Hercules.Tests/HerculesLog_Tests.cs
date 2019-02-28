@@ -73,6 +73,49 @@ namespace Vostok.Logging.Hercules.Tests
             @event.Tags[LogEventTagNames.StackTrace].AsString.Should().Contain("at Vostok.Logging.Hercules.Tests");
         }
 
+        [Test]
+        public void IsEnabledFor_should_respect_enabled_log_levels()
+        {
+            var sink = Substitute.For<IHerculesSink>();
+            
+            var log = new HerculesLog(new HerculesLogSettings(sink, "stream")
+            {
+                EnabledLogLevels = new []{LogLevel.Debug, LogLevel.Warn, LogLevel.Fatal}
+            });
+
+            log.IsEnabledFor(LogLevel.Debug).Should().BeTrue();
+            log.IsEnabledFor(LogLevel.Info).Should().BeFalse();
+            log.IsEnabledFor(LogLevel.Warn).Should().BeTrue();
+            log.IsEnabledFor(LogLevel.Error).Should().BeFalse();
+            log.IsEnabledFor(LogLevel.Fatal).Should().BeTrue();
+        }
+
+        [Test]
+        public void Log_should_respect_enabled_log_levels()
+        {
+            var sink = Substitute.For<IHerculesSink>();
+            
+            var log = new HerculesLog(new HerculesLogSettings(sink, "stream")
+            {
+                EnabledLogLevels = new []{LogLevel.Debug, LogLevel.Warn, LogLevel.Fatal}
+            });
+            
+            log.Debug("");
+            sink.ReceivedCalls().Should().HaveCount(1);
+            
+            log.Info("");
+            sink.ReceivedCalls().Should().HaveCount(1);
+            
+            log.Warn("");
+            sink.ReceivedCalls().Should().HaveCount(2);
+            
+            log.Error("");
+            sink.ReceivedCalls().Should().HaveCount(2);
+            
+            log.Fatal("");
+            sink.ReceivedCalls().Should().HaveCount(3);
+        }
+
         private static Exception GetExceptionWithStacktrace()
         {
             try
