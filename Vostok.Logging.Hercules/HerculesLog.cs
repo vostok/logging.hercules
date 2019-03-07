@@ -54,8 +54,13 @@ namespace Vostok.Logging.Hercules
 
         /// <inheritdoc />
         public ILog ForContext(string context)
-            => new SourceContextWrapper(this, context);
-        
+        {
+            if (context == null)
+                throw new ArgumentNullException(nameof(context));
+
+            return new SourceContextWrapper(this, context);
+        }
+
         private bool IsEnabledFor(HerculesLogSettings settings, LogLevel level)
             => Array.IndexOf(settings.EnabledLogLevels, level) >= 0;
     }

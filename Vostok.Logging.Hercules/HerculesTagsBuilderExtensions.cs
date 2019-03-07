@@ -59,9 +59,7 @@ namespace Vostok.Logging.Hercules
             return builder;
         }
 
-        private static IHerculesTagsBuilder AddStackFrameData(
-            this IHerculesTagsBuilder builder,
-            StackFrame frame)
+        private static void AddStackFrameData(this IHerculesTagsBuilder builder, StackFrame frame)
         {
             var method = frame.GetMethod();
             if (method != null)
@@ -82,8 +80,6 @@ namespace Vostok.Logging.Hercules
             var columnNumber = frame.GetFileColumnNumber();
             if (columnNumber > 0)
                 builder.AddValue(StackFrameTagNames.Column, columnNumber);
-            
-            return builder;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
