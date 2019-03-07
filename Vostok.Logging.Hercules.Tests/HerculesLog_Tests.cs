@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Vostok.Hercules.Client.Abstractions;
 using Vostok.Hercules.Client.Abstractions.Events;
 using Vostok.Logging.Abstractions;
+using Vostok.Logging.Abstractions.Values;
 using Vostok.Logging.Hercules.Configuration;
 using Vostok.Logging.Hercules.Constants;
 
@@ -68,7 +69,7 @@ namespace Vostok.Logging.Hercules.Tests
                 .Should()
                 .Be($"Vostok.Logging.Hercules.Tests.{GetType().Name}");
 
-            @event.Tags?[LogEventTagNames.StackTrace]?.AsString.Should().Contain("Vostok.Logging.Hercules.Tests");
+            @event.Tags[LogEventTagNames.StackTrace]?.AsString.Should().Contain("Vostok.Logging.Hercules.Tests");
         }
 
         [Test]
@@ -112,6 +113,43 @@ namespace Vostok.Logging.Hercules.Tests
             
             log.Fatal("");
             sink.ReceivedCalls().Should().HaveCount(3);
+        }
+
+        [Test]
+        public void Should_save_SourceContextValue_as_vector_of_strings()
+        {
+            var builder = new HerculesEventBuilder();
+
+            sink.Put(stream, Arg.Do<Action<IHerculesEventBuilder>>(x => x(builder)));
+
+            log
+                .ForContext("src1")
+                .ForContext("src2")
+                .Info("Hello!");
+
+            var @event = builder.BuildEvent();
+
+            var vector = @event.Tags[LogEventTagNames.Properties]?.AsContainer[WellKnownProperties.SourceContext]?.AsVector;
+
+            vector?.AsStringList.Should().Equal("src1", "src2");
+        }
+
+        [Test]
+        public void Should_save_OperationContextValue_as_vector_of_strings()
+        {
+            var builder = new HerculesEventBuilder();
+
+            sink.Put(stream, Arg.Do<Action<IHerculesEventBuilder>>(x => x(builder)));
+
+            log
+                .WithProperty(WellKnownProperties.OperationContext, new OperationContextValue(new[] {"op1", "op2"}))
+                .Info("Hello!");
+
+            var @event = builder.BuildEvent();
+
+            var vector = @event.Tags[LogEventTagNames.Properties]?.AsContainer[WellKnownProperties.OperationContext]?.AsVector;
+
+            vector?.AsStringList.Should().Equal("op1", "op2");
         }
 
         private static Exception GetExceptionWithStacktrace()
