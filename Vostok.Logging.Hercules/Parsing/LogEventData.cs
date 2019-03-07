@@ -39,7 +39,7 @@ namespace Vostok.Logging.Hercules.Parsing
         /// <para>The level of original <see cref="LogEvent"/>.</para>
         /// <para>For more information see <see cref="LogEvent.Level"/>.</para>
         /// </summary>
-        public LogLevel Level => level ?? (level = ParseLogLevel(@event.Tags[LogEventTagNames.Level].AsString)).Value;
+        public LogLevel Level => level ?? (level = ParseLogLevel(@event.Tags[LogEventTagNames.Level]?.AsString)).Value;
 
         /// <summary>
         /// <para>The template of the log message containing placeholders to be filled with values from <see cref="Properties"/>.</para>
@@ -81,9 +81,9 @@ namespace Vostok.Logging.Hercules.Parsing
                 x => x.Key,
                 x => x.Value);
 
-        private LogLevel ParseLogLevel(string level)
+        private static LogLevel ParseLogLevel(string value)
         {
-            switch (level)
+            switch (value)
             {
                 case "Debug":
                     return LogLevel.Debug;
@@ -96,7 +96,7 @@ namespace Vostok.Logging.Hercules.Parsing
                 case "Fatal":
                     return LogLevel.Fatal;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(level), level);
+                    throw new ArgumentOutOfRangeException(nameof(value), value);
             }
         }
     }

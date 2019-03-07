@@ -6,7 +6,6 @@ using Vostok.Clusterclient.Core.Topology;
 using Vostok.Commons.Testing;
 using Vostok.Hercules.Client;
 using Vostok.Hercules.Client.Abstractions;
-using Vostok.Hercules.Client.Abstractions.Models;
 using Vostok.Hercules.Client.Abstractions.Queries;
 using Vostok.Hercules.Client.Management;
 using Vostok.Logging.Abstractions;

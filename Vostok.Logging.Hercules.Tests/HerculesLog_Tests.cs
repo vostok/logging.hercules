@@ -56,29 +56,27 @@ namespace Vostok.Logging.Hercules.Tests
 
             var @event = builder.BuildEvent();
 
-            var exception = @event.Tags[LogEventTagNames.Exception].AsContainer;
+            var exception = @event.Tags[LogEventTagNames.Exception]?.AsContainer;
 
-            var topFrame = exception[ExceptionTagNames.StackFrames].AsVector.AsContainerList[0];
+            var topFrame = exception?[ExceptionTagNames.StackFrames]?.AsVector.AsContainerList[0];
             
-            topFrame[StackFrameTagNames.Function]
-                .AsString
+            topFrame?[StackFrameTagNames.Function]?.AsString
                 .Should()
                 .Be(nameof(GetExceptionWithStacktrace));
             
-            topFrame[StackFrameTagNames.Type]
-                .AsString
+            topFrame?[StackFrameTagNames.Type]?.AsString
                 .Should()
-                .Be("Vostok.Logging.Hercules.Tests.HerculesLog_Tests");
+                .Be($"Vostok.Logging.Hercules.Tests.{GetType().Name}");
 
-            @event.Tags[LogEventTagNames.StackTrace].AsString.Should().Contain("at Vostok.Logging.Hercules.Tests");
+            @event.Tags?[LogEventTagNames.StackTrace]?.AsString.Should().Contain("Vostok.Logging.Hercules.Tests");
         }
 
         [Test]
         public void IsEnabledFor_should_respect_enabled_log_levels()
         {
-            var sink = Substitute.For<IHerculesSink>();
+            sink = Substitute.For<IHerculesSink>();
             
-            var log = new HerculesLog(new HerculesLogSettings(sink, "stream")
+            log = new HerculesLog(new HerculesLogSettings(sink, "stream")
             {
                 EnabledLogLevels = new []{LogLevel.Debug, LogLevel.Warn, LogLevel.Fatal}
             });
@@ -93,9 +91,9 @@ namespace Vostok.Logging.Hercules.Tests
         [Test]
         public void Log_should_respect_enabled_log_levels()
         {
-            var sink = Substitute.For<IHerculesSink>();
+            sink = Substitute.For<IHerculesSink>();
             
-            var log = new HerculesLog(new HerculesLogSettings(sink, "stream")
+            log = new HerculesLog(new HerculesLogSettings(sink, "stream")
             {
                 EnabledLogLevels = new []{LogLevel.Debug, LogLevel.Warn, LogLevel.Fatal}
             });
