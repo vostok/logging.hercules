@@ -31,7 +31,7 @@ namespace Vostok.Logging.Hercules.Tests
             consoleLog = new ConsoleLog();
 
             sink = new HerculesSink(
-                new HerculesSinkConfig(new FixedClusterProvider(
+                new HerculesSinkSettings(new FixedClusterProvider(
                         new Uri("http://vm-hercules04:6306")),
                     () => apiKey),
                 consoleLog);
@@ -40,11 +40,7 @@ namespace Vostok.Logging.Hercules.Tests
             streamName = "elk_adapter_test_0";// + Guid.NewGuid().ToString().Substring(0, 8);
 
             managementClient = new HerculesManagementClient(
-                new HerculesManagementClientConfig
-                {
-                    Cluster = new FixedClusterProvider(new Uri("http://vm-hercules05:6507")),
-                    ApiKeyProvider = () => apiKey
-                },
+                new HerculesManagementClientSettings(new FixedClusterProvider(new Uri("http://vm-hercules05:6507")), () => apiKey),
                 consoleLog);
 
             // managementClient.CreateStream(
@@ -73,10 +69,10 @@ namespace Vostok.Logging.Hercules.Tests
             log.Error(GetException(), "lol {A} {C} {B}", new{A = 1, B = 2, C = 3});
             log.Error(GetException(), "lol {A} {C} {B}", new{A = 3, B = 4, C = 5});
             
-            new Action(() => sink.SentRecordsCount.Should().Be(2)).ShouldPassIn(5.Seconds());
+            new Action(() => sink.GetStatistics().SentRecordsCount.Should().Be(2)).ShouldPassIn(5.Seconds());
             
             var streamClient = new HerculesStreamClient(
-                new HerculesStreamClientConfig(
+                new HerculesStreamClientSettings(
                     new FixedClusterProvider(
                         new Uri("http://vm-hercules05:6407")),
                     () => apiKey),
