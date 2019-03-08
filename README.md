@@ -5,6 +5,12 @@
 
 An implementation of Vostok ILog that send events to Hercules. Also provides mapping from Hercules events back to Log Events.
 
+**Build guide**: https://github.com/vostok/devtools/blob/master/library-dev-conventions/how-to-build-a-library.md
+
+**User documentation**: https://vostok.gitbook.io/logging/
+
+-----
+
 Here's how [LogEvent](https://github.com/vostok/logging.abstractions/blob/master/Vostok.Logging.Abstractions/LogEvent.cs) instances are mapped into Hercules events (according to [schema](https://github.com/vostok/hercules/blob/master/doc/event-schema/log-event-schema.md)):
 
 - `Timestamp` (mandatory) corresponds to:
