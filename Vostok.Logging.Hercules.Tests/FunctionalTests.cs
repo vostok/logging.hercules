@@ -68,7 +68,7 @@ namespace Vostok.Logging.Hercules.Tests
             log.Error(GetException(), "lol {A} {C} {B}", new{A = 1, B = 2, C = 3});
             log.Error(GetException(), "lol {A} {C} {B}", new{A = 3, B = 4, C = 5});
             
-            new Action(() => sink.GetStatistics().SentRecordsCount.Should().Be(2)).ShouldPassIn(5.Seconds());
+            new Action(() => sink.GetStatistics().Global.SentRecords.Count.Should().Be(2)).ShouldPassIn(5.Seconds());
             
             var streamClient = new HerculesStreamClient(
                 new HerculesStreamClientSettings(
