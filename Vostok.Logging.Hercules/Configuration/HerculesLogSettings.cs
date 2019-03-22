@@ -26,13 +26,13 @@ namespace Vostok.Logging.Hercules.Configuration
         /// </summary>
         [NotNull]
         public IHerculesSink HerculesSink { get; set; }
-        
+
         /// <summary>
         /// Name of the Hercules stream to use.
         /// </summary>
         [NotNull]
         public string Stream { get; set; }
-        
+
         /// <summary>
         /// <para>If specified, this <see cref="IFormatProvider"/> will be used when formatting log property values.</para>
         /// <para>Dynamic reconfiguration is supported for this parameter: it's accessed for each <see cref="LogEvent"/>.</para>

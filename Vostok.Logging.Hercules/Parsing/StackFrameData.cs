@@ -41,7 +41,7 @@ namespace Vostok.Logging.Hercules.Parsing
         /// </summary>
         [CanBeNull]
         public int? Line => tags[StackFrameTagNames.Line]?.AsInt;
-        
+
         /// <summary>
         /// The column number in the file that contains the code that is executing in this frame.
         /// </summary>

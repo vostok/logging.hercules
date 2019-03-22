@@ -10,7 +10,8 @@ namespace Vostok.Logging.Hercules
     {
         public static IHerculesTagsBuilder AddLogEventData(
             this IHerculesEventBuilder builder,
-            LogEvent @event, IFormatProvider formatProvider)
+            LogEvent @event,
+            IFormatProvider formatProvider)
         {
             builder
                 .SetTimestamp(@event.Timestamp)
@@ -30,12 +31,11 @@ namespace Vostok.Logging.Hercules
                 if (@event.Exception.StackTrace != null)
                     builder.AddValue(LogEventTagNames.StackTrace, @event.Exception.ToString());
             }
-                    
+
             if (@event.Properties != null)
                 builder.AddContainer(
                     LogEventTagNames.Properties,
                     tagsBuilder => tagsBuilder.AddProperties(@event.Properties));
-
 
             return builder;
         }

@@ -35,7 +35,7 @@ namespace Vostok.Logging.Hercules
             builder
                 .AddValue(ExceptionTagNames.Message, exception.Message)
                 .AddValue(ExceptionTagNames.Type, exception.GetType().FullName);
-            
+
             var stackFrames = new StackTrace(exception, true).GetFrames();
             if (stackFrames != null)
                 builder.AddVectorOfContainers(
@@ -44,12 +44,12 @@ namespace Vostok.Logging.Hercules
                     (tagsBuilder, frame) => tagsBuilder.AddStackFrameData(frame));
 
             var innerExceptions = new List<Exception>();
-            
+
             if (exception is AggregateException aggregateException)
                 innerExceptions.AddRange(aggregateException.InnerExceptions);
             else if (exception.InnerException != null)
                 innerExceptions.Add(exception.InnerException);
-            
+
             if (innerExceptions.Count > 0)
                 builder.AddVectorOfContainers(
                     ExceptionTagNames.InnerExceptions,
@@ -72,11 +72,11 @@ namespace Vostok.Logging.Hercules
             var fileName = frame.GetFileName();
             if (!string.IsNullOrEmpty(fileName))
                 builder.AddValue(StackFrameTagNames.File, fileName);
-            
+
             var lineNumber = frame.GetFileLineNumber();
             if (lineNumber > 0)
                 builder.AddValue(StackFrameTagNames.Line, lineNumber);
-            
+
             var columnNumber = frame.GetFileColumnNumber();
             if (columnNumber > 0)
                 builder.AddValue(StackFrameTagNames.Column, columnNumber);
