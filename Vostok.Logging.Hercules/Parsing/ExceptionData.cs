@@ -15,34 +15,34 @@ namespace Vostok.Logging.Hercules.Parsing
         private readonly HerculesTags tags;
         private ExceptionData[] innerExceptions;
         private StackFrameData[] stacktrace;
-        
-        /// <summary>
-        /// The runtime type of exception.
-        /// </summary>
-        [CanBeNull]
-        public string Type => tags[ExceptionTagNames.Type]?.AsString;
-        
-        /// <summary>
-        /// The message that contains in this exception.
-        /// </summary>
-        [CanBeNull]
-        public string Message => tags[ExceptionTagNames.Message]?.AsString;
-        
-        /// <summary>
-        /// An array of <see cref="StackFrameData"/> that describes exception stacktrace. 
-        /// </summary>
-        [CanBeNull]
-        public StackFrameData[] StackFrames => stacktrace ?? (stacktrace = ExtractStacktrace());
-        
-        /// <summary>
-        /// An array of nested exceptions that contains in this exception.
-        /// </summary>
-        public ExceptionData[] InnerExceptions => innerExceptions ?? (innerExceptions = ExtractInnerExceptions());
 
         private ExceptionData(HerculesTags tags)
         {
             this.tags = tags;
         }
+
+        /// <summary>
+        /// The runtime type of exception.
+        /// </summary>
+        [CanBeNull]
+        public string Type => tags[ExceptionTagNames.Type]?.AsString;
+
+        /// <summary>
+        /// The message that contains in this exception.
+        /// </summary>
+        [CanBeNull]
+        public string Message => tags[ExceptionTagNames.Message]?.AsString;
+
+        /// <summary>
+        /// An array of <see cref="StackFrameData"/> that describes exception stacktrace. 
+        /// </summary>
+        [CanBeNull]
+        public StackFrameData[] StackFrames => stacktrace ?? (stacktrace = ExtractStacktrace());
+
+        /// <summary>
+        /// An array of nested exceptions that contains in this exception.
+        /// </summary>
+        public ExceptionData[] InnerExceptions => innerExceptions ?? (innerExceptions = ExtractInnerExceptions());
 
         internal static ExceptionData FromTags(HerculesTags tags)
         {

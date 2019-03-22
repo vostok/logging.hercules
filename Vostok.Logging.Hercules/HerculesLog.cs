@@ -37,12 +37,12 @@ namespace Vostok.Logging.Hercules
         {
             if (@event == null)
                 return;
-            
+
             var settings = settingsProvider.Get();
-            
+
             if (!IsEnabledFor(settings, @event.Level))
                 return;
-            
+
             settings.HerculesSink.Put(
                 settings.Stream,
                 builder => builder.AddLogEventData(@event, settings.FormatProvider));

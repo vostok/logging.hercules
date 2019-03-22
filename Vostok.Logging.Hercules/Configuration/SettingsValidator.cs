@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 
 namespace Vostok.Logging.Hercules.Configuration
 {
@@ -12,10 +11,10 @@ namespace Vostok.Logging.Hercules.Configuration
 
             if (settings.HerculesSink == null)
                 throw new ArgumentNullException(nameof(settings.HerculesSink));
-            
+
             if (string.IsNullOrWhiteSpace(settings.Stream))
                 throw new ArgumentNullException(nameof(settings.Stream));
-            
+
             if (settings.EnabledLogLevels == null)
                 throw new ArgumentNullException(nameof(settings.EnabledLogLevels));
 

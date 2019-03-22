@@ -48,13 +48,13 @@ namespace Vostok.Logging.Hercules.Parsing
         /// </summary>
         [CanBeNull]
         public string MessageTemplate => @event.Tags[LogEventTagNames.MessageTemplate]?.AsString;
-        
+
         /// <summary>
         /// <para>The text representation of <see cref="LogEvent"/> message based on <see cref="MessageTemplate"/> and <see cref="Properties"/>.</para>
         /// </summary>
         [CanBeNull]
         public string Message => @event.Tags[LogEventTagNames.Message]?.AsString;
-        
+
         /// <summary>
         /// <para>The error associated with this log event.</para>
         /// <para>See: <see cref="LogEvent.Exception"/>.</para>
@@ -67,19 +67,13 @@ namespace Vostok.Logging.Hercules.Parsing
         /// </summary>
         [CanBeNull]
         public string StackTrace => @event.Tags[LogEventTagNames.StackTrace]?.AsString;
-        
+
         /// <summary>
         /// <para>Contains various user-defined properties of the event.</para>
         /// <para>For more information see <see cref="LogEvent.Properties"/>.</para>
         /// </summary>
         [CanBeNull]
         public IDictionary<string, HerculesValue> Properties => properties ?? (properties = ReadDictionary(LogEventTagNames.Properties));
-
-        private IDictionary<string, HerculesValue> ReadDictionary(string tagName) => @event.Tags[tagName]
-            ?.AsContainer
-            ?.ToDictionary(
-                x => x.Key,
-                x => x.Value);
 
         private static LogLevel ParseLogLevel(string value)
         {
@@ -99,5 +93,11 @@ namespace Vostok.Logging.Hercules.Parsing
                     throw new ArgumentOutOfRangeException(nameof(value), value);
             }
         }
+
+        private IDictionary<string, HerculesValue> ReadDictionary(string tagName) => @event.Tags[tagName]
+            ?.AsContainer
+            ?.ToDictionary(
+                x => x.Key,
+                x => x.Value);
     }
 }
