@@ -23,7 +23,7 @@ namespace Vostok.Logging.Hercules.Configuration
                 if (ReferenceEquals(actualSettings, cachedSettings))
                     return actualSettings;
 
-                return cachedSettings = SettingsValidator.ValidateSettings(actualSettings);
+                return cachedSettings = actualSettings;
             }
             catch (Exception exception)
             {
