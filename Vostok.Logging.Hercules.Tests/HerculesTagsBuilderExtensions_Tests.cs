@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using FluentAssertions;
-using FluentAssertions.Extensions;
 using NUnit.Framework;
 using Vostok.Hercules.Client.Abstractions.Events;
 using Vostok.Logging.Hercules.Constants;
@@ -34,7 +34,26 @@ namespace Vostok.Logging.Hercules.Tests
             exceptions[0][ExceptionTagNames.Type].AsString.Should().Be(exception0.GetType().FullName);
             exceptions[1][ExceptionTagNames.Type].AsString.Should().Be(exception1.GetType().FullName);
             exceptions[2][ExceptionTagNames.Type].AsString.Should().Be(exception2.GetType().FullName);
+        }
 
+        [Test]
+        public void Should_serialize_dates_in_ISO_format()
+        {
+            var dtoValue = DateTimeOffset.Now;
+            var dtValue = DateTime.Now;
+
+            var properties = new Dictionary<string, object>
+            {
+                ["DateTimeOffset"] = dtoValue,
+                ["DateTime"] = dtValue
+            };
+
+            builder.AddProperties(properties);
+
+            var tags = builder.BuildTags();
+
+            tags["DateTimeOffset"]?.AsString.Should().Be(dtoValue.ToString("O"));
+            tags["DateTime"]?.AsString.Should().Be(dtValue.ToString("O"));
         }
     }
 }

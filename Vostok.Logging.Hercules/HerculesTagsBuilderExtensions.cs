@@ -22,7 +22,10 @@ namespace Vostok.Logging.Hercules
                 if (builder.TryAddObject(keyValuePair.Key, keyValuePair.Value))
                     continue;
 
-                builder.AddValue(keyValuePair.Key, ObjectValueFormatter.Format(keyValuePair.Value));
+                var value = keyValuePair.Value;
+                var format = value is DateTime || value is DateTimeOffset ? "O" : null;
+
+                builder.AddValue(keyValuePair.Key, ObjectValueFormatter.Format(value, format));
             }
 
             return builder;
