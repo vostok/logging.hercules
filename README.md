@@ -31,7 +31,7 @@ Here's how [LogEvent](https://github.com/vostok/logging.abstractions/blob/master
   - Exception runtime type (e.g. `System.NullReferenceException`) ---> `type` tag of type `string`.
   - Exception message ---> `message` tag of type `string`.
   - Nested exceptions (e.g. `InnerException` and `InnerExceptions` for `AggregateException`) ---> `innerExceptions` tag of type `Vector` which contains other exceptions in the same format.
-  - Stacktrace of exception ---> `stackTrace` tag of type `Vector<StackFrame>`. `StackFrame` is a container of following tags which describe a point of code which executed when the exception occured:
+  - Stacktrace of exception ---> `stackFrames` tag of type `Vector<StackFrame>`. `StackFrame` is a container of following tags which describe a point of code which executed when the exception occured:
     - `function` - a name of function (method).
     - `type` - a type when `function` is declared.
     - `file` - file name.
