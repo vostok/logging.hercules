@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using Vostok.Hercules.Client.Abstractions;
 using Vostok.Logging.Abstractions;
@@ -49,5 +50,14 @@ namespace Vostok.Logging.Hercules.Configuration
         /// </summary>
         [NotNull]
         public LogLevel[] EnabledLogLevels { get; set; } = (LogLevel[])Enum.GetValues(typeof(LogLevel));
+
+        /// <summary>
+        /// A list of properties, that should not be sent to Hercules.
+        /// </summary>
+        [CanBeNull]
+        public IReadOnlyCollection<string> BlacklistedProperties { get; set; } = new HashSet<string>
+        {
+            WellKnownProperties.TraceContext
+        };
     }
 }
