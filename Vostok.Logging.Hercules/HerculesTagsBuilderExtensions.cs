@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Vostok.Commons.Formatting;
 using Vostok.Hercules.Client.Abstractions.Events;
@@ -12,11 +13,15 @@ namespace Vostok.Logging.Hercules
     {
         public static IHerculesTagsBuilder AddProperties(
             this IHerculesTagsBuilder builder,
-            IReadOnlyDictionary<string, object> properties)
+            IReadOnlyDictionary<string, object> properties,
+            IReadOnlyCollection<string> filteredProperties)
         {
             foreach (var keyValuePair in properties)
             {
                 if (IsPositionalName(keyValuePair.Key))
+                    continue;
+
+                if (filteredProperties?.Contains(keyValuePair.Key) == true)
                     continue;
 
                 if (builder.TryAddObject(keyValuePair.Key, keyValuePair.Value))

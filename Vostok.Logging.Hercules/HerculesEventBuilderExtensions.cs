@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Vostok.Hercules.Client.Abstractions.Events;
 using Vostok.Logging.Abstractions;
 using Vostok.Logging.Formatting;
@@ -11,6 +12,7 @@ namespace Vostok.Logging.Hercules
         public static IHerculesTagsBuilder AddLogEventData(
             this IHerculesEventBuilder builder,
             LogEvent @event,
+            IReadOnlyCollection<string> filteredProperties,
             IFormatProvider formatProvider)
         {
             builder
@@ -35,7 +37,7 @@ namespace Vostok.Logging.Hercules
             if (@event.Properties != null)
                 builder.AddContainer(
                     LogEventTagNames.Properties,
-                    tagsBuilder => tagsBuilder.AddProperties(@event.Properties));
+                    tagsBuilder => tagsBuilder.AddProperties(@event.Properties, filteredProperties));
 
             return builder;
         }

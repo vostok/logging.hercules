@@ -1,3 +1,7 @@
+## 0.1.3 (15.05.2020):
+
+Do not send TraceContext property to Hercules.
+
 ## 0.1.2 (02.12.2019):
 
 * Now rendering properties of `DateTime` and `DateTimeOffset` types in ISO 8601 format.

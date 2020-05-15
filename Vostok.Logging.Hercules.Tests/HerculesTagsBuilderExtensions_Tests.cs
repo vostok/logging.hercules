@@ -48,12 +48,29 @@ namespace Vostok.Logging.Hercules.Tests
                 ["DateTime"] = dtValue
             };
 
-            builder.AddProperties(properties);
+            builder.AddProperties(properties, null);
 
             var tags = builder.BuildTags();
 
             tags["DateTimeOffset"]?.AsString.Should().Be(dtoValue.ToString("O"));
             tags["DateTime"]?.AsString.Should().Be(dtValue.ToString("O"));
+        }
+
+        [Test]
+        public void Should_filter_properties()
+        {
+            var properties = new Dictionary<string, object>
+            {
+                ["p1"] = "v1",
+                ["p2"] = "v2"
+            };
+
+            builder.AddProperties(properties, new []{"p1"});
+
+            var tags = builder.BuildTags();
+
+            tags.ContainsKey("p1").Should().BeFalse();
+            tags["p2"]?.AsString.Should().Be("v2");
         }
     }
 }
