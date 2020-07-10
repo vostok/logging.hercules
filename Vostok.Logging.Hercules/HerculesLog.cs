@@ -45,7 +45,7 @@ namespace Vostok.Logging.Hercules
 
             settings.HerculesSink.Put(
                 settings.Stream,
-                builder => builder.AddLogEventData(@event, settings.BlacklistedProperties, settings.FormatProvider));
+                builder => builder.AddLogEventData(@event, settings.BlacklistedProperties, settings.WhitelistedProperties, settings.FormatProvider));
         }
 
         /// <inheritdoc />

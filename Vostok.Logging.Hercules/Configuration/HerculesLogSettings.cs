@@ -55,9 +55,13 @@ namespace Vostok.Logging.Hercules.Configuration
         /// A list of properties, that should not be sent to Hercules.
         /// </summary>
         [CanBeNull]
-        public IReadOnlyCollection<string> BlacklistedProperties { get; set; } = new HashSet<string>
-        {
-            WellKnownProperties.TraceContext
-        };
+        public IReadOnlyCollection<string> BlacklistedProperties { get; set; } = DefaultHerculesLogProperties.Blacklisted;
+
+        /// <summary>
+        /// <para>A list of properties, that should be sent to Hercules.</para>
+        /// <para><c>null</c> value allows all properties.</para>
+        /// </summary>
+        [CanBeNull]
+        public IReadOnlyCollection<string> WhitelistedProperties { get; set; }
     }
 }

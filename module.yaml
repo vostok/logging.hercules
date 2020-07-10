@@ -11,6 +11,14 @@ notests *default:
     - module vostok.logging.abstractions
 
   deps:
+    - vostok.hosting.abstractions
+    - vostok.tracing.abstractions
+    - vostok.servicediscovery.abstractions
+    - vostok.metrics
+    - vostok.datacenters
+    - vostok.context
+    - vostok.configuration.abstractions
+    - vostok.clusterconfig.client.abstractions
     - vostok.devtools
     - vostok.hercules.client.abstractions
     - vostok.logging.abstractions
