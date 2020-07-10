@@ -29,7 +29,7 @@ namespace Vostok.Logging.Hercules.Tests
         {
             var @event = new LogEvent(LogLevel.Info, timestamp, null);
 
-            builder.AddLogEventData(@event, null, null);
+            builder.AddLogEventData(@event, null, null, null);
 
             builder.BuildEvent().Timestamp.Should().Be(timestamp);
         }
@@ -39,7 +39,7 @@ namespace Vostok.Logging.Hercules.Tests
         {
             var @event = new LogEvent(LogLevel.Info, timestamp, null);
 
-            builder.AddLogEventData(@event, null, null);
+            builder.AddLogEventData(@event, null, null, null);
 
             builder.BuildEvent().Tags[LogEventTagNames.UtcOffset].AsLong.Should().Be(utcOffset.Ticks);
         }
@@ -51,7 +51,7 @@ namespace Vostok.Logging.Hercules.Tests
                 .WithProperty("A", 1)
                 .WithProperty("B", 2);
 
-            builder.AddLogEventData(@event, null, null);
+            builder.AddLogEventData(@event, null, null, null);
 
             builder.BuildEvent().Tags[LogEventTagNames.Properties].AsContainer["A"].AsInt.Should().Be(1);
             builder.BuildEvent().Tags[LogEventTagNames.Properties].AsContainer["B"].AsInt.Should().Be(2);

@@ -48,7 +48,7 @@ namespace Vostok.Logging.Hercules.Tests
                 ["DateTime"] = dtValue
             };
 
-            builder.AddProperties(properties, null);
+            builder.AddProperties(properties, null, null);
 
             var tags = builder.BuildTags();
 
@@ -57,7 +57,7 @@ namespace Vostok.Logging.Hercules.Tests
         }
 
         [Test]
-        public void Should_filter_properties()
+        public void Should_filter_properties_with_blacklist()
         {
             var properties = new Dictionary<string, object>
             {
@@ -65,12 +65,29 @@ namespace Vostok.Logging.Hercules.Tests
                 ["p2"] = "v2"
             };
 
-            builder.AddProperties(properties, new []{"p1"});
+            builder.AddProperties(properties, new []{"p1"}, null);
 
             var tags = builder.BuildTags();
 
             tags.ContainsKey("p1").Should().BeFalse();
             tags["p2"]?.AsString.Should().Be("v2");
+        }
+
+        [Test]
+        public void Should_filter_properties_by_whitelist()
+        {
+            var properties = new Dictionary<string, object>
+            {
+                ["p1"] = "v1",
+                ["p2"] = "v2"
+            };
+
+            builder.AddProperties(properties, null, new[] { "p1" });
+
+            var tags = builder.BuildTags();
+
+            tags["p1"]?.AsString.Should().Be("v1");
+            tags.ContainsKey("p2").Should().BeFalse();
         }
     }
 }

@@ -14,14 +14,15 @@ namespace Vostok.Logging.Hercules
         public static IHerculesTagsBuilder AddProperties(
             this IHerculesTagsBuilder builder,
             IReadOnlyDictionary<string, object> properties,
-            IReadOnlyCollection<string> filteredProperties)
+            IReadOnlyCollection<string> filteredProperties,
+            IReadOnlyCollection<string> nonFilteredProperties)
         {
             foreach (var keyValuePair in properties)
             {
                 if (IsPositionalName(keyValuePair.Key))
                     continue;
 
-                if (filteredProperties?.Contains(keyValuePair.Key) == true)
+                if (ShouldBeFiltered(keyValuePair.Key, filteredProperties, nonFilteredProperties))
                     continue;
 
                 if (builder.TryAddObject(keyValuePair.Key, keyValuePair.Value))
@@ -103,6 +104,16 @@ namespace Vostok.Logging.Hercules
             }
 
             return true;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool ShouldBeFiltered(string propertyName, IReadOnlyCollection<string> filteredProperties, IReadOnlyCollection<string> nonFilteredProperties)
+        {
+            if (filteredProperties != null && filteredProperties.Contains(propertyName))
+                return true;
+            if (nonFilteredProperties != null && !nonFilteredProperties.Contains(propertyName))
+                return true;
+            return false;
         }
     }
 }
