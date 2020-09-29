@@ -1,3 +1,7 @@
+## 0.1.4 (29.09.2020):
+
+Optimized rendering of unstructured log events without actual templating in messages.
+
 ## 0.1.3 (15.05.2020):
 
 Do not send TraceContext property to Hercules.
