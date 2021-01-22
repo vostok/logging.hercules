@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Vostok.Commons.Formatting;
 using Vostok.Hercules.Client.Abstractions.Events;
 using Vostok.Logging.Hercules.Constants;
+using Vostok.Logging.Hercules.Helpers;
 
 namespace Vostok.Logging.Hercules
 {
@@ -74,7 +75,7 @@ namespace Vostok.Logging.Hercules
             {
                 builder.AddValue(StackFrameTagNames.Function, method.Name);
                 if (method.DeclaringType != null)
-                    builder.AddValue(StackFrameTagNames.Type, method.DeclaringType.FullName);
+                    builder.AddValue(StackFrameTagNames.Type, ExceptionsNormalizer.Normalize(method.DeclaringType.FullName));
             }
 
             var fileName = frame.GetFileName();
