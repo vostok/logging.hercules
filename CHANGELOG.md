@@ -1,3 +1,7 @@
+## 0.1.5 (22.01.2021):
+
+Normalize unique values such as UUIDs in method names when serializing stack traces.
+
 ## 0.1.4 (29.09.2020):
 
 Optimized rendering of unstructured log events without actual templating in messages.
