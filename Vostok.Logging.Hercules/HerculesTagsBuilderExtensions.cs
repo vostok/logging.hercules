@@ -43,7 +43,7 @@ namespace Vostok.Logging.Hercules
         {
             builder
                 .AddValue(ExceptionTagNames.Message, exception.Message)
-                .AddValue(ExceptionTagNames.Type, exception.GetType().FullName);
+                .AddValue(ExceptionTagNames.Type, ExceptionsNormalizer.Normalize(exception.GetType().FullName));
 
             var stackFrames = new StackTrace(exception, true).GetFrames();
             if (stackFrames != null)

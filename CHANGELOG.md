@@ -1,3 +1,7 @@
+## 0.1.6 (09.02.2021):
+
+Normalize unique values such as UUIDs in method names when serializing stack traces better.
+
 ## 0.1.5 (22.01.2021):
 
 Normalize unique values such as UUIDs in method names when serializing stack traces.
