@@ -16,6 +16,7 @@ namespace Vostok.Logging.Hercules.Tests.Helpers
         [TestCase(
             "EmittedProxyCommand_EmittedProxy_IIntegrationServiceClient_747b9339-fe3a-4253-9d33-940978cf037f_SaveOrganizationCommand_2b042abf-7e97-4b9d-8b6b-04ed4598c32e", 
             "EmittedProxyCommand_EmittedProxy_IIntegrationServiceClient_~_SaveOrganizationCommand_~")]
+        [TestCase("lambda_method285", "lambda_method~")]
         public void Normalize_should_cut_guids(string input, string expected)
         {
             var actual = ExceptionsNormalizer.Normalize(input);
