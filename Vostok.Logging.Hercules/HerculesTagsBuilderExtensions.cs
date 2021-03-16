@@ -73,7 +73,7 @@ namespace Vostok.Logging.Hercules
             var method = frame.GetMethod();
             if (method != null)
             {
-                builder.AddValue(StackFrameTagNames.Function, method.Name);
+                builder.AddValue(StackFrameTagNames.Function, ExceptionsNormalizer.Normalize(method.Name));
                 if (method.DeclaringType != null)
                     builder.AddValue(StackFrameTagNames.Type, ExceptionsNormalizer.Normalize(method.DeclaringType.FullName));
             }

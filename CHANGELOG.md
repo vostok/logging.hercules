@@ -1,3 +1,7 @@
+## 0.1.7 (16.03.2021):
+
+Normalize unique `lambda_method357` values when serializing stack traces.
+
 ## 0.1.6 (09.02.2021):
 
 Normalize unique values such as UUIDs in method names when serializing stack traces better.
