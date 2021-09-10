@@ -1,3 +1,7 @@
+## 0.1.8 (10.09.2021):
+
+Added `WellKnownHerculesLogProperties.ElkIndex`.
+
 ## 0.1.7 (16.03.2021):
 
 Normalize unique `lambda_method357` values when serializing stack traces.

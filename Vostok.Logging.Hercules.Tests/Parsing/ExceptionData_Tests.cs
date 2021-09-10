@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using FluentAssertions;
 using NUnit.Framework;
 using Vostok.Hercules.Client.Abstractions.Events;
@@ -25,9 +24,9 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
         {
             var type = Guid.NewGuid().ToString();
             var message = Guid.NewGuid().ToString();
-            
+
             var tagsBuilder = new HerculesTagsBuilder();
-            
+
             tagsBuilder
                 .AddValue(ExceptionTagNames.Type, type)
                 .AddValue(ExceptionTagNames.Message, message)

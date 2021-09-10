@@ -18,12 +18,12 @@ namespace Vostok.Logging.Hercules.Tests
         public void Setup()
         {
             utcOffset = 3.Hours();
-            
+
             timestamp = new DateTimeOffset(DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified), utcOffset);
 
             builder = new HerculesEventBuilder();
         }
-        
+
         [Test]
         public void Should_serialize_timestamp_from_event()
         {
@@ -33,7 +33,7 @@ namespace Vostok.Logging.Hercules.Tests
 
             builder.BuildEvent().Timestamp.Should().Be(timestamp);
         }
-        
+
         [Test]
         public void Should_serialize_utcOffset_from_event()
         {
@@ -43,7 +43,7 @@ namespace Vostok.Logging.Hercules.Tests
 
             builder.BuildEvent().Tags[LogEventTagNames.UtcOffset].AsLong.Should().Be(utcOffset.Ticks);
         }
-        
+
         [Test]
         public void Should_serialize_properties_from_event()
         {

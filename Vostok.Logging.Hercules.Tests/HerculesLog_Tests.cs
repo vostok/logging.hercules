@@ -25,7 +25,7 @@ namespace Vostok.Logging.Hercules.Tests
 
             log = new HerculesLog(new HerculesLogSettings(sink, stream));
         }
-        
+
         [TestCase(1)]
         [TestCase(3)]
         public void Should_put_events_to_HerculesSink(int eventsCount)
@@ -35,7 +35,7 @@ namespace Vostok.Logging.Hercules.Tests
 
             sink.Received(eventsCount).Put(stream, Arg.Any<Action<IHerculesEventBuilder>>());
         }
-        
+
         [Test]
         public void Should_put_event_with_exception()
         {
@@ -43,12 +43,12 @@ namespace Vostok.Logging.Hercules.Tests
 
             sink.Received(1).Put(stream, Arg.Any<Action<IHerculesEventBuilder>>());
         }
-        
+
         [Test]
         public void Should_add_exception_data_to_event()
         {
             var builder = new HerculesEventBuilder();
-            
+
             sink.Put(stream, Arg.Do<Action<IHerculesEventBuilder>>(x => x(builder)));
 
             var e = GetExceptionWithStacktrace();
@@ -60,12 +60,14 @@ namespace Vostok.Logging.Hercules.Tests
             var exception = @event.Tags[LogEventTagNames.Exception]?.AsContainer;
 
             var topFrame = exception?[ExceptionTagNames.StackFrames]?.AsVector.AsContainerList[0];
-            
-            topFrame?[StackFrameTagNames.Function]?.AsString
+
+            topFrame?[StackFrameTagNames.Function]
+                ?.AsString
                 .Should()
                 .Be(nameof(GetExceptionWithStacktrace));
-            
-            topFrame?[StackFrameTagNames.Type]?.AsString
+
+            topFrame?[StackFrameTagNames.Type]
+                ?.AsString
                 .Should()
                 .Be($"Vostok.Logging.Hercules.Tests.{GetType().Name}");
 
@@ -76,10 +78,10 @@ namespace Vostok.Logging.Hercules.Tests
         public void IsEnabledFor_should_respect_enabled_log_levels()
         {
             sink = Substitute.For<IHerculesSink>();
-            
+
             log = new HerculesLog(new HerculesLogSettings(sink, "stream")
             {
-                EnabledLogLevels = new []{LogLevel.Debug, LogLevel.Warn, LogLevel.Fatal}
+                EnabledLogLevels = new[] {LogLevel.Debug, LogLevel.Warn, LogLevel.Fatal}
             });
 
             log.IsEnabledFor(LogLevel.Debug).Should().BeTrue();
@@ -93,24 +95,24 @@ namespace Vostok.Logging.Hercules.Tests
         public void Log_should_respect_enabled_log_levels()
         {
             sink = Substitute.For<IHerculesSink>();
-            
+
             log = new HerculesLog(new HerculesLogSettings(sink, "stream")
             {
-                EnabledLogLevels = new []{LogLevel.Debug, LogLevel.Warn, LogLevel.Fatal}
+                EnabledLogLevels = new[] {LogLevel.Debug, LogLevel.Warn, LogLevel.Fatal}
             });
-            
+
             log.Debug("");
             sink.ReceivedCalls().Should().HaveCount(1);
-            
+
             log.Info("");
             sink.ReceivedCalls().Should().HaveCount(1);
-            
+
             log.Warn("");
             sink.ReceivedCalls().Should().HaveCount(2);
-            
+
             log.Error("");
             sink.ReceivedCalls().Should().HaveCount(2);
-            
+
             log.Fatal("");
             sink.ReceivedCalls().Should().HaveCount(3);
         }
