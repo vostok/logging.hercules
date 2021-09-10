@@ -1,7 +1,5 @@
 using System;
-using System.Runtime.InteropServices;
 using FluentAssertions;
-using FluentAssertions.Extensions;
 using NUnit.Framework;
 using Vostok.Hercules.Client.Abstractions.Events;
 using Vostok.Logging.Hercules.Constants;
@@ -31,7 +29,7 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
             var file = Guid.NewGuid().ToString();
             var line = 25;
             var column = 80;
-            
+
             var tagsBuilder = new HerculesTagsBuilder();
 
             tagsBuilder

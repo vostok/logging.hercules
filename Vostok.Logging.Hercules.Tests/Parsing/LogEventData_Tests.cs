@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using FluentAssertions;
 using FluentAssertions.Extensions;
 using NUnit.Framework;
@@ -35,16 +34,16 @@ namespace Vostok.Logging.Hercules.Tests.Parsing
             var renderedMessage = Guid.NewGuid().ToString();
             var propKey = "prop1";
             var propValue = 2;
-            
+
             var eventBuilder = new HerculesEventBuilder();
-            
+
             eventBuilder
                 .SetTimestamp(timestamp)
                 .AddValue(LogEventTagNames.MessageTemplate, messageTemplate)
                 .AddValue(LogEventTagNames.Message, renderedMessage)
                 .AddValue(LogEventTagNames.StackTrace, stackTrace)
                 .AddContainer(LogEventTagNames.Properties, b => b.AddValue(propKey, propValue))
-                .AddContainer(LogEventTagNames.Exception, delegate { });
+                .AddContainer(LogEventTagNames.Exception, delegate {});
 
             var @event = eventBuilder.BuildEvent();
 

@@ -20,10 +20,10 @@ namespace Vostok.Logging.Hercules.Tests
         [Test]
         public void Should_serialize_inner_exceptions()
         {
-            var exception0 = new InvalidOperationException();            
+            var exception0 = new InvalidOperationException();
             var exception1 = new NullReferenceException();
             var exception2 = new ArgumentException();
-            
+
             var aggregateException = new AggregateException(exception0, exception1, exception2);
 
             builder.AddExceptionData(aggregateException);
@@ -65,7 +65,7 @@ namespace Vostok.Logging.Hercules.Tests
                 ["p2"] = "v2"
             };
 
-            builder.AddProperties(properties, new []{"p1"});
+            builder.AddProperties(properties, new[] {"p1"});
 
             var tags = builder.BuildTags();
 
