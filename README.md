@@ -1,6 +1,6 @@
 # Vostok.Logging.Hercules
 
-[![Build status](https://ci.appveyor.com/api/projects/status/github/vostok/logging.hercules?svg=true&branch=master)](https://ci.appveyor.com/project/vostok/logging.hercules/branch/master)
+[![Build & Test & Publish](https://github.com/vostok/logging.hercules/actions/workflows/ci.yml/badge.svg)](https://github.com/vostok/logging.hercules/actions/workflows/ci.yml)
 [![NuGet](https://img.shields.io/nuget/v/Vostok.Logging.Hercules.svg)](https://www.nuget.org/packages/Vostok.Logging.Hercules)
 
 An implementation of Vostok ILog that send events to Hercules. Also provides mapping from Hercules events back to Log Events.
