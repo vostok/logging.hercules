@@ -15,7 +15,8 @@ namespace Vostok.Logging.Hercules
         public static IHerculesTagsBuilder AddProperties(
             this IHerculesTagsBuilder builder,
             IReadOnlyDictionary<string, object> properties,
-            IReadOnlyCollection<string> filteredProperties)
+            IReadOnlyCollection<string> filteredProperties,
+            IFormatProvider formatProvider)
         {
             foreach (var keyValuePair in properties)
             {
@@ -31,7 +32,7 @@ namespace Vostok.Logging.Hercules
                 var value = keyValuePair.Value;
                 var format = value is DateTime || value is DateTimeOffset ? "O" : null;
 
-                builder.AddValue(keyValuePair.Key, ObjectValueFormatter.Format(value, format));
+                builder.AddValue(keyValuePair.Key, ObjectValueFormatter.Format(value, format, formatProvider));
             }
 
             return builder;
