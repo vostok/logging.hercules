@@ -48,7 +48,7 @@ namespace Vostok.Logging.Hercules.Tests
                 ["DateTime"] = dtValue
             };
 
-            builder.AddProperties(properties, null);
+            builder.AddProperties(properties, null, null);
 
             var tags = builder.BuildTags();
 
@@ -65,7 +65,7 @@ namespace Vostok.Logging.Hercules.Tests
                 ["p2"] = "v2"
             };
 
-            builder.AddProperties(properties, new[] {"p1"});
+            builder.AddProperties(properties, new[] {"p1"}, null);
 
             var tags = builder.BuildTags();
 
