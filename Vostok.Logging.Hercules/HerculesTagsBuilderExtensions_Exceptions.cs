@@ -1,43 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Vostok.Commons.Formatting;
 using Vostok.Hercules.Client.Abstractions.Events;
 using Vostok.Logging.Hercules.Constants;
 using Vostok.Logging.Hercules.Helpers;
 
 namespace Vostok.Logging.Hercules
 {
-    internal static class HerculesTagsBuilderExtensions
+    internal static class HerculesTagsBuilderExtensions_Exceptions
     {
-        public static IHerculesTagsBuilder AddProperties(
-            this IHerculesTagsBuilder builder,
-            IReadOnlyDictionary<string, object> properties,
-            IReadOnlyCollection<string> filteredProperties,
-            IFormatProvider formatProvider)
-        {
-            foreach (var keyValuePair in properties)
-            {
-                if (IsPositionalName(keyValuePair.Key))
-                    continue;
-
-                if (filteredProperties?.Contains(keyValuePair.Key) == true)
-                    continue;
-
-                if (builder.TryAddObject(keyValuePair.Key, keyValuePair.Value))
-                    continue;
-
-                var value = keyValuePair.Value;
-                var format = value is DateTime || value is DateTimeOffset ? "O" : null;
-
-                builder.AddValue(keyValuePair.Key, ObjectValueFormatter.Format(value, format, formatProvider));
-            }
-
-            return builder;
-        }
-
         public static IHerculesTagsBuilder AddExceptionData(
             this IHerculesTagsBuilder builder,
             Exception exception)
@@ -90,21 +61,6 @@ namespace Vostok.Logging.Hercules
             var columnNumber = frame.GetFileColumnNumber();
             if (columnNumber > 0)
                 builder.AddValue(StackFrameTagNames.Column, columnNumber);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool IsPositionalName(string propertyName)
-        {
-            foreach (var character in propertyName)
-            {
-                if (character < '0')
-                    return false;
-
-                if (character > '9')
-                    return false;
-            }
-
-            return true;
         }
     }
 }
