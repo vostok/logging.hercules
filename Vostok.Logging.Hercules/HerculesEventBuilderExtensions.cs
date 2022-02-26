@@ -37,7 +37,7 @@ namespace Vostok.Logging.Hercules
             if (@event.Properties != null)
                 builder.AddContainer(
                     LogEventTagNames.Properties,
-                    tagsBuilder => tagsBuilder.AddProperties(@event.Properties, filteredProperties));
+                    tagsBuilder => tagsBuilder.AddProperties(@event, filteredProperties, formatProvider));
 
             return builder;
         }
