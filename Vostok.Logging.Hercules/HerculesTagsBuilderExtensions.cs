@@ -5,6 +5,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Vostok.Commons.Formatting;
 using Vostok.Hercules.Client.Abstractions.Events;
+using Vostok.Logging.Abstractions;
+using Vostok.Logging.Abstractions.Values;
+using Vostok.Logging.Formatting;
 using Vostok.Logging.Hercules.Constants;
 using Vostok.Logging.Hercules.Helpers;
 
@@ -14,24 +17,29 @@ namespace Vostok.Logging.Hercules
     {
         public static IHerculesTagsBuilder AddProperties(
             this IHerculesTagsBuilder builder,
-            IReadOnlyDictionary<string, object> properties,
-            IReadOnlyCollection<string> filteredProperties)
+            LogEvent @event,
+            IReadOnlyCollection<string> filteredProperties,
+            IFormatProvider formatProvider)
         {
-            foreach (var keyValuePair in properties)
+            foreach (var keyValuePair in @event.Properties!)
             {
-                if (IsPositionalName(keyValuePair.Key))
+                var key = keyValuePair.Key;
+                if (IsPositionalName(key))
                     continue;
-
-                if (filteredProperties?.Contains(keyValuePair.Key) == true)
-                    continue;
-
-                if (builder.TryAddObject(keyValuePair.Key, keyValuePair.Value))
+                if (filteredProperties?.Contains(key) == true)
                     continue;
 
                 var value = keyValuePair.Value;
+
+                if (key == WellKnownProperties.OperationContext && value is OperationContextValue operationContextValue)
+                    value = operationContextValue.Select(t => OperationContextValueFormatter.Format(@event, t, null, formatProvider)).ToArray(); 
+
+                if (builder.TryAddObject(key, value))
+                    continue;
+
                 var format = value is DateTime || value is DateTimeOffset ? "O" : null;
 
-                builder.AddValue(keyValuePair.Key, ObjectValueFormatter.Format(value, format));
+                builder.AddValue(key, ObjectValueFormatter.Format(value, format));
             }
 
             return builder;
