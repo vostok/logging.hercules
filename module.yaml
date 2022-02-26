@@ -14,7 +14,7 @@ notests *default:
     - vostok.devtools
     - vostok.hercules.client.abstractions
     - vostok.logging.abstractions
-    - vostok.logging.formatting
+    - vostok.logging.formatting@template-operation
     - vostok.commons.formatting/src
 
 full-build > notests:
