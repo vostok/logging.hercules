@@ -1,3 +1,7 @@
+## 0.1.11 (02-03-2022):
+
+Supported properties rendering right inside Operation Context property.
+
 ## 0.1.10 (06-12-2021):
 
 Added `net6.0` target.
