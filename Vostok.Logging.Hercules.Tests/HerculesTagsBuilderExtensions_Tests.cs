@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
 using Vostok.Hercules.Client.Abstractions.Events;
+using Vostok.Logging.Abstractions;
 using Vostok.Logging.Hercules.Constants;
 
 namespace Vostok.Logging.Hercules.Tests
@@ -48,7 +49,7 @@ namespace Vostok.Logging.Hercules.Tests
                 ["DateTime"] = dtValue
             };
 
-            builder.AddProperties(properties, null);
+            builder.AddProperties(new LogEvent(LogLevel.Info, DateTimeOffset.Now, null, properties, null) , null, null);
 
             var tags = builder.BuildTags();
 
@@ -65,7 +66,7 @@ namespace Vostok.Logging.Hercules.Tests
                 ["p2"] = "v2"
             };
 
-            builder.AddProperties(properties, new[] {"p1"});
+            builder.AddProperties(new LogEvent(LogLevel.Info, DateTimeOffset.Now, null, properties, null) , new[] {"p1"}, null);
 
             var tags = builder.BuildTags();
 

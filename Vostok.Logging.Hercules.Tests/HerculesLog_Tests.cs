@@ -153,6 +153,24 @@ namespace Vostok.Logging.Hercules.Tests
 
             vector?.AsStringList.Should().Equal("op1", "op2");
         }
+        
+        [Test]
+        public void Should_format_OperationContextValue_as_vector_of_strings()
+        {
+            var builder = new HerculesEventBuilder();
+
+            sink.Put(stream, Arg.Do<Action<IHerculesEventBuilder>>(x => x(builder)));
+
+            log
+                .WithProperty(WellKnownProperties.OperationContext, new OperationContextValue(new[] {"op1", "{Name}", "op3"}))
+                .Info("Hello {Name}!", "Vostok");
+
+            var @event = builder.BuildEvent();
+
+            var vector = @event.Tags[LogEventTagNames.Properties]?.AsContainer[WellKnownProperties.OperationContext]?.AsVector;
+
+            vector?.AsStringList.Should().Equal("op1", "Vostok", "op3");
+        }
 
         private static Exception GetExceptionWithStacktrace()
         {
