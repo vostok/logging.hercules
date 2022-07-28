@@ -1,0 +1,38 @@
+const Vostok.Logging.Hercules.WellKnownHerculesLogProperties.ElkIndex = "elk-index" -> string
+Vostok.Logging.Hercules.Configuration.HerculesLogSettings
+Vostok.Logging.Hercules.Configuration.HerculesLogSettings.BlacklistedProperties.get -> System.Collections.Generic.IReadOnlyCollection<string>
+Vostok.Logging.Hercules.Configuration.HerculesLogSettings.BlacklistedProperties.set -> void
+Vostok.Logging.Hercules.Configuration.HerculesLogSettings.EnabledLogLevels.get -> Vostok.Logging.Abstractions.LogLevel[]
+Vostok.Logging.Hercules.Configuration.HerculesLogSettings.EnabledLogLevels.set -> void
+Vostok.Logging.Hercules.Configuration.HerculesLogSettings.FormatProvider.get -> System.IFormatProvider
+Vostok.Logging.Hercules.Configuration.HerculesLogSettings.FormatProvider.set -> void
+Vostok.Logging.Hercules.Configuration.HerculesLogSettings.HerculesLogSettings(Vostok.Hercules.Client.Abstractions.IHerculesSink herculesSink, string stream) -> void
+Vostok.Logging.Hercules.Configuration.HerculesLogSettings.HerculesSink.get -> Vostok.Hercules.Client.Abstractions.IHerculesSink
+Vostok.Logging.Hercules.Configuration.HerculesLogSettings.Stream.get -> string
+Vostok.Logging.Hercules.HerculesLog
+Vostok.Logging.Hercules.HerculesLog.ForContext(string context) -> Vostok.Logging.Abstractions.ILog
+Vostok.Logging.Hercules.HerculesLog.HerculesLog(System.Func<Vostok.Logging.Hercules.Configuration.HerculesLogSettings> settingsProvider) -> void
+Vostok.Logging.Hercules.HerculesLog.HerculesLog(Vostok.Logging.Hercules.Configuration.HerculesLogSettings settings) -> void
+Vostok.Logging.Hercules.HerculesLog.IsEnabledFor(Vostok.Logging.Abstractions.LogLevel level) -> bool
+Vostok.Logging.Hercules.HerculesLog.Log(Vostok.Logging.Abstractions.LogEvent event) -> void
+Vostok.Logging.Hercules.Parsing.ExceptionData
+Vostok.Logging.Hercules.Parsing.ExceptionData.InnerExceptions.get -> Vostok.Logging.Hercules.Parsing.ExceptionData[]
+Vostok.Logging.Hercules.Parsing.ExceptionData.Message.get -> string
+Vostok.Logging.Hercules.Parsing.ExceptionData.StackFrames.get -> Vostok.Logging.Hercules.Parsing.StackFrameData[]
+Vostok.Logging.Hercules.Parsing.ExceptionData.Type.get -> string
+Vostok.Logging.Hercules.Parsing.LogEventData
+Vostok.Logging.Hercules.Parsing.LogEventData.Exception.get -> Vostok.Logging.Hercules.Parsing.ExceptionData
+Vostok.Logging.Hercules.Parsing.LogEventData.Level.get -> Vostok.Logging.Abstractions.LogLevel
+Vostok.Logging.Hercules.Parsing.LogEventData.LogEventData(Vostok.Hercules.Client.Abstractions.Events.HerculesEvent event) -> void
+Vostok.Logging.Hercules.Parsing.LogEventData.Message.get -> string
+Vostok.Logging.Hercules.Parsing.LogEventData.MessageTemplate.get -> string
+Vostok.Logging.Hercules.Parsing.LogEventData.Properties.get -> System.Collections.Generic.IDictionary<string, Vostok.Hercules.Client.Abstractions.Values.HerculesValue>
+Vostok.Logging.Hercules.Parsing.LogEventData.StackTrace.get -> string
+Vostok.Logging.Hercules.Parsing.LogEventData.Timestamp.get -> System.DateTimeOffset
+Vostok.Logging.Hercules.Parsing.StackFrameData
+Vostok.Logging.Hercules.Parsing.StackFrameData.Column.get -> int?
+Vostok.Logging.Hercules.Parsing.StackFrameData.File.get -> string
+Vostok.Logging.Hercules.Parsing.StackFrameData.Function.get -> string
+Vostok.Logging.Hercules.Parsing.StackFrameData.Line.get -> int?
+Vostok.Logging.Hercules.Parsing.StackFrameData.Type.get -> string
+Vostok.Logging.Hercules.WellKnownHerculesLogProperties
