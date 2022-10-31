@@ -1,3 +1,7 @@
+## 0.1.12 (31-10-2022):
+
+Fixed timestmap parsing bug
+
 ## 0.1.11 (02-03-2022):
 
 Supported properties rendering right inside Operation Context property.
