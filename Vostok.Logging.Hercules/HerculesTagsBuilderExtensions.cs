@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Vostok.Commons.Formatting;
@@ -15,6 +17,8 @@ namespace Vostok.Logging.Hercules
 {
     internal static class HerculesTagsBuilderExtensions
     {
+        private const int MaximumRecursionDepth = 10;
+        
         public static IHerculesTagsBuilder AddProperties(
             this IHerculesTagsBuilder builder,
             LogEvent @event,
@@ -34,12 +38,7 @@ namespace Vostok.Logging.Hercules
                 if (key == WellKnownProperties.OperationContext && value is OperationContextValue operationContextValue)
                     value = operationContextValue.Select(t => OperationContextValueFormatter.Format(@event, t, null, formatProvider)).ToArray(); 
 
-                if (builder.TryAddObject(key, value))
-                    continue;
-
-                var format = value is DateTime || value is DateTimeOffset ? "O" : null;
-
-                builder.AddValue(key, ObjectValueFormatter.Format(value, format));
+                builder.AddProperty(key, value, formatProvider, 0);
             }
 
             return builder;
@@ -97,6 +96,65 @@ namespace Vostok.Logging.Hercules
             var columnNumber = frame.GetFileColumnNumber();
             if (columnNumber > 0)
                 builder.AddValue(StackFrameTagNames.Column, columnNumber);
+        }
+        
+        private static void AddProperty(
+            this IHerculesTagsBuilder builder,
+            string key,
+            object value,
+            IFormatProvider formatProvider,
+            int depth)
+        {
+            Type valueType;
+
+            if (builder.TryAddObject(key, value) || depth > MaximumRecursionDepth)
+            {
+                // return;
+            }
+            else if (value is IFormattable formattable)
+            {
+                var format = value is DateTime or DateTimeOffset ? "O" : null;
+                builder.AddValue(key, formattable.ToString(format, formatProvider ?? CultureInfo.InvariantCulture));
+            }
+            else if (false) // todo (kungurtsev, 20.02.2022): check should not deconstruct
+            {
+                builder.AddValue(key, ObjectValueFormatter.Format(value, null, formatProvider));
+            }
+            else if (DictionaryInspector.IsSimpleDictionary(valueType = value.GetType()))
+            {
+                builder.AddContainer(key,
+                    tagsBuilder =>
+                    {
+                        foreach (var (pKey, pValue) in DictionaryInspector.EnumerateSimpleDictionary(value))
+                            tagsBuilder.AddProperty(pKey, pValue, formatProvider, depth + 1);
+                    });
+            }
+            else if (value is IEnumerable enumerable)
+            {
+                builder.AddVectorOfContainers(key,
+                    enumerable.Cast<object>().ToList(),
+                    (tagsBuilder, element) =>
+                    {
+                        if (element != null && ObjectPropertiesExtractor.HasProperties(element.GetType()))
+                        {
+                            foreach (var (eKey, eValue) in ObjectPropertiesExtractor.ExtractProperties(element))
+                                tagsBuilder.AddProperty(eKey, eValue, formatProvider, depth + 1);
+                        }
+                        else
+                        {
+                            tagsBuilder.AddProperty("key", element, formatProvider, depth + 1);
+                        }
+                    });
+            }
+            else if (ObjectPropertiesExtractor.HasProperties(valueType)) // todo (kungurtsev, 20.02.2022): or check here?
+            {
+                builder.AddContainer(key,
+                    tagsBuilder =>
+                    {
+                        foreach (var (pKey, pValue) in ObjectPropertiesExtractor.ExtractProperties(value))
+                            tagsBuilder.AddProperty(pKey, pValue, formatProvider, depth + 1);
+                    });
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
