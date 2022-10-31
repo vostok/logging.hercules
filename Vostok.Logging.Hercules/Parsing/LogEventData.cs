@@ -24,9 +24,10 @@ namespace Vostok.Logging.Hercules.Parsing
         public LogEventData(HerculesEvent @event)
         {
             this.@event = @event;
-            Timestamp = new DateTimeOffset(
-                DateTime.SpecifyKind(@event.Timestamp.UtcDateTime, DateTimeKind.Unspecified),
-                new TimeSpan(@event.Tags[LogEventTagNames.UtcOffset]?.AsLong ?? default));
+            
+            var timestampOffset = new TimeSpan(@event.Tags[LogEventTagNames.UtcOffset]?.AsLong ?? default);
+            var timestamp = DateTime.SpecifyKind(@event.Timestamp.UtcDateTime + timestampOffset, DateTimeKind.Unspecified);
+            Timestamp = new DateTimeOffset(timestamp, timestampOffset);
         }
 
         /// <summary>
