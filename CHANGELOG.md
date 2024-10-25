@@ -1,3 +1,7 @@
+## 0.1.13 (25-10-2024):
+
+Rebuild nuget package to use new version of Hercules.Client.
+
 ## 0.1.12 (31-10-2022):
 
 Fixed timestmap parsing bug
