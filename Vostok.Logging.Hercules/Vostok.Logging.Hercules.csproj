@@ -21,17 +21,8 @@
     <RepositoryUrl>https://github.com/vostok/logging.hercules</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Vostok.Hercules.Client.Abstractions">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\vostok.hercules.client.abstractions\Vostok.Hercules.Client.Abstractions\bin\Release\$(ReferencesFramework)\Vostok.Hercules.Client.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Vostok.Logging.Abstractions">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\vostok.logging.abstractions\Vostok.Logging.Abstractions\bin\Release\$(ReferencesFramework)\Vostok.Logging.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Vostok.Logging.Formatting">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\vostok.logging.formatting\Vostok.Logging.Formatting\bin\Release\$(ReferencesFramework)\Vostok.Logging.Formatting.dll</HintPath>
-    </Reference>
+    <ModuleReference Include="vostok.hercules.client.abstractions" />
+    <ModuleReference Include="vostok.logging.abstractions" />
+    <ModuleReference Include="vostok.logging.formatting" />
   </ItemGroup>
 </Project>
