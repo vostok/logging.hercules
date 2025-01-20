@@ -9,6 +9,25 @@ notests *default:
     - Vostok.Logging.Hercules/bin/Release/netstandard2.0/Vostok.Logging.Hercules.dll
     - module vostok.hercules.client.abstractions
     - module vostok.logging.abstractions
+    - groups:
+      - target-framework: "netstandard2.0"
+        libraries:
+          - Vostok.Logging.Hercules/bin/Release/netstandard2.0/Vostok.Logging.Hercules.dll
+        modules:
+          - name: vostok.hercules.client.abstractions
+          - name: vostok.logging.abstractions
+      - target-framework: "net6.0"
+        libraries:
+          - Vostok.Logging.Hercules/bin/Release/net6.0/Vostok.Logging.Hercules.dll
+        modules:
+          - name: vostok.hercules.client.abstractions
+          - name: vostok.logging.abstractions
+      - target-framework: "net8.0"
+        libraries:
+          - Vostok.Logging.Hercules/bin/Release/net8.0/Vostok.Logging.Hercules.dll
+        modules:
+          - name: vostok.hercules.client.abstractions
+          - name: vostok.logging.abstractions
 
   deps:
     - vostok.devtools
@@ -21,6 +40,30 @@ full-build > notests:
   build:
     target: Vostok.Logging.Hercules.sln
     configuration: Release
+
+  install:
+    - Vostok.Logging.Hercules/bin/Release/netstandard2.0/Vostok.Logging.Hercules.dll
+    - module vostok.hercules.client.abstractions
+    - module vostok.logging.abstractions
+    - groups:
+      - target-framework: "netstandard2.0"
+        libraries:
+          - Vostok.Logging.Hercules/bin/Release/netstandard2.0/Vostok.Logging.Hercules.dll
+        modules:
+          - name: vostok.hercules.client.abstractions
+          - name: vostok.logging.abstractions
+      - target-framework: "net6.0"
+        libraries:
+          - Vostok.Logging.Hercules/bin/Release/net6.0/Vostok.Logging.Hercules.dll
+        modules:
+          - name: vostok.hercules.client.abstractions
+          - name: vostok.logging.abstractions
+      - target-framework: "net8.0"
+        libraries:
+          - Vostok.Logging.Hercules/bin/Release/net8.0/Vostok.Logging.Hercules.dll
+        modules:
+          - name: vostok.hercules.client.abstractions
+          - name: vostok.logging.abstractions
   
   deps:
     - -vostok.devtools
